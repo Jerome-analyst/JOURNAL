@@ -1,4 +1,4 @@
-package com.example.aibalance.ui
+package com.aibalance.tracker
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.aibalance.R
+import com.aibalance.tracker.R
 
 class AiUsageAdapter : ListAdapter<AiUsageItem, AiUsageAdapter.AiUsageViewHolder>(DiffCallback) {
 

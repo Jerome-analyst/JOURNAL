@@ -13,15 +13,15 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         <activity
-            android:name=".SignupActivity"
+            android:name="com.aibalance.tracker.SignupActivity"
             android:exported="false" />
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.aibalance.tracker.MainActivity"
             android:exported="false" />
 
         <activity
-            android:name=".LoginActivity"
+            android:name="com.aibalance.tracker.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

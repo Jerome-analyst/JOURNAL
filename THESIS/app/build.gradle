@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.aibalance'
+    namespace 'com.aibalance.tracker'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.aibalance"
+        applicationId "com.aibalance.tracker"
         minSdk 24
         targetSdk 34
         versionCode 1

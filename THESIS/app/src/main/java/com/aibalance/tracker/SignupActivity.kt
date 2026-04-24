@@ -1,4 +1,4 @@
-package com.example.aibalance
+package com.aibalance.tracker
 
 import android.content.Intent
 import android.os.Bundle

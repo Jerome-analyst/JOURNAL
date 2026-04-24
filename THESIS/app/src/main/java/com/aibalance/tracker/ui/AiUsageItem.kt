@@ -1,4 +1,4 @@
-package com.example.aibalance.ui
+package com.aibalance.tracker
 
 data class AiUsageItem(
     val appName: String,

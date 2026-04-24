@@ -1,4 +1,4 @@
-package com.example.aibalance
+package com.aibalance.tracker
 
 import android.app.AppOpsManager
 import android.content.Intent
@@ -14,10 +14,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.aibalance.ui.AiUsageAdapter
-import com.example.aibalance.ui.AiUsageItem
+import com.aibalance.tracker.AiUsageAdapter
+import com.aibalance.tracker.AiUsageItem
 
-class MainActivity : AppCompatActivity() {
+cl ass MainActivity : AppCompatActivity() {
 
     private lateinit var tracker: AiUsageTracker
     private lateinit var adapter: AiUsageAdapter
