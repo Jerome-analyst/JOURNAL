@@ -1,0 +1,58 @@
+[
+    {
+        "merged": "C:\\Users\\jerom\\.gradle\\daemon\\9.0.0\\com.aibalance.tracker.app-debug-39:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\jerom\\.gradle\\daemon\\9.0.0\\com.aibalance.tracker.app-main-41:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "com.aibalance.tracker.app-debug-39:/layout_activity_signup.xml.flat",
+        "source": "com.aibalance.tracker.app-main-41:/layout/activity_signup.xml"
+    },
+    {
+        "merged": "com.aibalance.tracker.app-debug-39:/menu_menu_bottom_nav.xml.flat",
+        "source": "com.aibalance.tracker.app-main-41:/menu/menu_bottom_nav.xml"
+    },
+    {
+        "merged": "C:\\Users\\jerom\\.gradle\\daemon\\9.0.0\\com.aibalance.tracker.app-debug-39:\\drawable_ic_launcher.xml.flat",
+        "source": "C:\\Users\\jerom\\.gradle\\daemon\\9.0.0\\com.aibalance.tracker.app-main-41:\\drawable\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\jerom\\.gradle\\daemon\\9.0.0\\com.aibalance.tracker.app-debug-39:\\layout_item_ai_usage.xml.flat",
+        "source": "C:\\Users\\jerom\\.gradle\\daemon\\9.0.0\\com.aibalance.tracker.app-main-41:\\layout\\item_ai_usage.xml"
+    },
+    {
+        "merged": "com.aibalance.tracker.app-debug-39:/layout_activity_game.xml.flat",
+        "source": "com.aibalance.tracker.app-main-41:/layout/activity_game.xml"
+    },
+    {
+        "merged": "com.aibalance.tracker.app-debug-39:/layout_activity_main.xml.flat",
+        "source": "com.aibalance.tracker.app-main-41:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.aibalance.tracker.app-debug-39:/layout_activity_cooldown.xml.flat",
+        "source": "com.aibalance.tracker.app-main-41:/layout/activity_cooldown.xml"
+    },
+    {
+        "merged": "C:\\Users\\jerom\\.gradle\\daemon\\9.0.0\\com.aibalance.tracker.app-debug-39:\\layout_activity_signup.xml.flat",
+        "source": "C:\\Users\\jerom\\.gradle\\daemon\\9.0.0\\com.aibalance.tracker.app-main-41:\\layout\\activity_signup.xml"
+    },
+    {
+        "merged": "C:\\Users\\jerom\\.gradle\\daemon\\9.0.0\\com.aibalance.tracker.app-debug-39:\\drawable_bg_glass_outline.xml.flat",
+        "source": "C:\\Users\\jerom\\.gradle\\daemon\\9.0.0\\com.aibalance.tracker.app-main-41:\\drawable\\bg_glass_outline.xml"
+    },
+    {
+        "merged": "C:\\Users\\jerom\\.gradle\\daemon\\9.0.0\\com.aibalance.tracker.app-debug-39:\\drawable_bg_glass_fill.xml.flat",
+        "source": "C:\\Users\\jerom\\.gradle\\daemon\\9.0.0\\com.aibalance.tracker.app-main-41:\\drawable\\bg_glass_fill.xml"
+    },
+    {
+        "merged": "com.aibalance.tracker.app-debug-39:/layout_activity_settings.xml.flat",
+        "source": "com.aibalance.tracker.app-main-41:/layout/activity_settings.xml"
+    },
+    {
+        "merged": "C:\\Users\\jerom\\.gradle\\daemon\\9.0.0\\com.aibalance.tracker.app-debug-39:\\layout_activity_login.xml.flat",
+        "source": "C:\\Users\\jerom\\.gradle\\daemon\\9.0.0\\com.aibalance.tracker.app-main-41:\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "com.aibalance.tracker.app-debug-39:/layout_activity_login.xml.flat",
+        "source": "com.aibalance.tracker.app-main-41:/layout/activity_login.xml"
+    }
+]

@@ -4,6 +4,12 @@
     <string name="minutes_value">%1$d min</string>
     <string name="remaining_minutes_value">%1$d min remaining</string>
     <string name="percentage_value">%1$d%%</string>
+    <string name="daily_usage_format">%1$d / %2$d min</string>
+    <string name="weekly_usage_format">%1$d min this week</string>
+    <string name="streak_days_format">%1$d day streak</string>
+    <string name="words_solved_format">%1$d solved</string>
+    <string name="bonus_minutes_format">+%1$d bonus min</string>
+    <string name="game_subtitle_format">Unscramble 5 words -> earn +3 minutes (%1$d/5)</string>
     <string name="fill_required_fields">Please fill in all required fields.</string>
     <string name="passwords_do_not_match">Passwords do not match.</string>
     <string name="auth_failed">Authentication failed. Please try again.</string>

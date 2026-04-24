@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "351969612283",
+    "project_id": "thesis-c8207",
+    "storage_bucket": "thesis-c8207.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351969612283:android:2cbb62be76a3d9b035fb5e",
+        "android_client_info": {
+          "package_name": "com.aibalance.tracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "351969612283-mtta98h2v1el1bvjb7h9dr10uelkrtna.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aibalance.tracker",
+            "certificate_hash": "59cab45de101ad0e667cbd765acfdaa4d0c8244f"
+          }
+        },
+        {
+          "client_id": "351969612283-4lfem2jd6a6o4kc52unu2h1u8b8q37b4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATzuaGqS0oKhCzNDitTDNvJaBH6oVDAbM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "351969612283-4lfem2jd6a6o4kc52unu2h1u8b8q37b4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

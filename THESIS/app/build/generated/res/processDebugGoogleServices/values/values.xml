@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">351969612283-4lfem2jd6a6o4kc52unu2h1u8b8q37b4.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">351969612283</string>
+    <string name="google_api_key" translatable="false">AIzaSyATzuaGqS0oKhCzNDitTDNvJaBH6oVDAbM</string>
+    <string name="google_app_id" translatable="false">1:351969612283:android:2cbb62be76a3d9b035fb5e</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyATzuaGqS0oKhCzNDitTDNvJaBH6oVDAbM</string>
+    <string name="google_storage_bucket" translatable="false">thesis-c8207.firebasestorage.app</string>
+    <string name="project_id" translatable="false">thesis-c8207</string>
+</resources>
