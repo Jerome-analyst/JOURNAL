@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AI Balance</string>
+    <string name="minutes_value">%1$d min</string>
+    <string name="remaining_minutes_value">%1$d min remaining</string>
+    <string name="percentage_value">%1$d%%</string>
+    <string name="fill_required_fields">Please fill in all required fields.</string>
+    <string name="passwords_do_not_match">Passwords do not match.</string>
+    <string name="auth_failed">Authentication failed. Please try again.</string>
+    <string name="signup_failed">Sign up failed. Please try again.</string>
+    <string name="google_sign_in_failed">Google sign-in failed. Please try again.</string>
+    <string name="default_web_client_id">YOUR_FIREBASE_WEB_CLIENT_ID</string>
+</resources>
