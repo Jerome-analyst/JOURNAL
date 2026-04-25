@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.switchmaterial.SwitchMaterial
+import com.google.firebase.auth.FirebaseAuth
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -22,6 +23,7 @@ class SettingsActivity : AppCompatActivity() {
         const val KEY_BONUS_MINUTES_EARNED = "bonus_minutes_earned"
         const val KEY_WORDS_SOLVED = "words_solved"
         const val KEY_STREAK_DAYS = "streak_days"
+        const val KEY_LAST_COOLDOWN_DAY = "last_cooldown_day"
     }
 
     private val prefs by lazy { getSharedPreferences(PREFS_NAME, MODE_PRIVATE) }
@@ -40,6 +42,7 @@ class SettingsActivity : AppCompatActivity() {
         val switchStreak = findViewById<SwitchMaterial>(R.id.switchStreakNotifications)
         val switchWeekly = findViewById<SwitchMaterial>(R.id.switchWeeklySummary)
         val btnSave = findViewById<Button>(R.id.btnSaveSettings)
+        val btnLogout = findViewById<Button>(R.id.btnLogout)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
 
         val dailyLimit = prefs.getInt(KEY_DAILY_LIMIT_MINUTES, 60)
@@ -85,6 +88,14 @@ class SettingsActivity : AppCompatActivity() {
                 .putBoolean(KEY_STREAK_NOTIFICATIONS, switchStreak.isChecked)
                 .putBoolean(KEY_WEEKLY_SUMMARY, switchWeekly.isChecked)
                 .apply()
+            finish()
+        }
+
+        btnLogout.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
             finish()
         }
 

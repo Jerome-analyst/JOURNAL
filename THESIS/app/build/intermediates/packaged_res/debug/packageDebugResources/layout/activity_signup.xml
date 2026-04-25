@@ -4,27 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:padding="24dp">
+    android:padding="32dp">
 
     <ImageView
         android:id="@+id/ivLogo"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:contentDescription="App logo"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:src="@drawable/ic_launcher"
+        app:layout_constraintBottom_toTopOf="@id/tvAppName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/tvAppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-black"
         android:text="AI Balance"
-        android:textColor="#111827"
+        android:textColor="#333333"
         android:textSize="28sp"
-        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/tvSignupTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivLogo" />
@@ -36,19 +38,27 @@
         android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="Create your account"
-        android:textColor="#6B7280"
+        android:textColor="#666666"
         android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/layoutName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvAppName" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layoutName"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:boxStrokeColor="#534AB7"
+        android:layout_marginTop="32dp"
+        app:boxBackgroundColor="#F5F5F5"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxStrokeWidth="0dp"
+        app:hintTextColor="#6200EE"
+        app:layout_constraintBottom_toTopOf="@id/layoutEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvSignupTitle">
@@ -57,17 +67,25 @@
             android:id="@+id/etName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name"
-            android:inputType="textPersonName" />
+            android:hint="Full Name"
+            android:inputType="textPersonName"
+            android:textColor="#333333" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layoutEmail"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:boxStrokeColor="#534AB7"
+        android:layout_marginTop="12dp"
+        app:boxBackgroundColor="#F5F5F5"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxStrokeWidth="0dp"
+        app:hintTextColor="#6200EE"
+        app:layout_constraintBottom_toTopOf="@id/layoutPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutName">
@@ -77,59 +95,80 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:textColor="#333333" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layoutPassword"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:boxStrokeColor="#534AB7"
+        android:layout_marginTop="12dp"
+        app:boxBackgroundColor="#F5F5F5"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxStrokeWidth="0dp"
+        app:hintTextColor="#6200EE"
+        app:layout_constraintBottom_toTopOf="@id/layoutConfirmPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutEmail"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="#666666">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="#333333" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layoutConfirmPassword"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:boxStrokeColor="#534AB7"
+        android:layout_marginTop="12dp"
+        app:boxBackgroundColor="#F5F5F5"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxStrokeWidth="0dp"
+        app:hintTextColor="#6200EE"
+        app:layout_constraintBottom_toTopOf="@id/btnCreateAccount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutPassword"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="#666666">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Confirm Password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="#333333" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCreateAccount"
         android:layout_width="0dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#534AB7"
-        android:text="Create Account"
+        android:layout_height="54dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#6200EE"
+        android:fontFamily="sans-serif-medium"
+        android:text="Sign Up"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         app:cornerRadius="12dp"
+        app:layout_constraintBottom_toTopOf="@id/tvGoToLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutConfirmPassword" />
@@ -138,13 +177,10 @@
         android:id="@+id/tvGoToLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:clickable="true"
-        android:focusable="true"
+        android:layout_marginTop="24dp"
         android:text="Already have an account? Login"
-        android:textColor="#534AB7"
+        android:textColor="#6200EE"
         android:textSize="14sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnCreateAccount" />

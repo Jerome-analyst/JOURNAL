@@ -1,238 +1,253 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:padding="20dp">
+    android:background="#FFFFFF">
 
-    <TextView
-        android:id="@+id/tvGameTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Mini-game"
-        android:textColor="#111827"
-        android:textSize="30sp"
-        android:textStyle="bold"
+    <!-- Top Header -->
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_pill_minutes"
+        android:backgroundTint="#F5F5F5"
+        android:src="@android:drawable/ic_menu_revert"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:tint="#333333" />
 
     <TextView
-        android:id="@+id/tvGameSubtitle"
-        android:layout_width="0dp"
+        android:id="@+id/tvLevel"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:text="Unscramble 5 words -> earn +3 minutes"
-        android:textColor="#6B7280"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/tvGameTitle"
+        android:fontFamily="sans-serif-black"
+        android:text="Level 1"
+        android:textColor="#333333"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/btnBack"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/btnBack" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardReward"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/layoutCoins"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:visibility="gone"
-        app:cardBackgroundColor="#ECFDF5"
-        app:cardCornerRadius="12dp"
-        app:layout_constraintTop_toBottomOf="@id/tvGameSubtitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_pill_minutes"
+        android:backgroundTint="#F5F5F5"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="6dp"
+        app:layout_constraintBottom_toBottomOf="@id/btnBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btnBack">
+
+        <ImageView
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:src="@android:drawable/btn_star_big_on"
+            app:tint="#FBC02D" />
 
         <TextView
-            android:id="@+id/tvRewardBanner"
-            android:layout_width="match_parent"
+            android:id="@+id/tvCoins"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:text="+3 minutes earned"
-            android:textColor="#065F46"
-            android:textStyle="bold" />
-    </com.google.android.material.card.MaterialCardView>
-
-    <LinearLayout
-        android:id="@+id/layoutTiles"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:weightSum="5"
-        app:layout_constraintTop_toBottomOf="@id/cardReward"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnTile1"
-            android:layout_width="0dp"
-            android:layout_height="54dp"
-            android:layout_marginEnd="6dp"
-            android:layout_weight="1"
-            android:text="A"
-            android:textAllCaps="false"
-            android:textColor="#111827"
-            app:backgroundTint="#EEF2FF"
-            app:cornerRadius="10dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnTile2"
-            android:layout_width="0dp"
-            android:layout_height="54dp"
-            android:layout_marginEnd="6dp"
-            android:layout_weight="1"
-            android:text="I"
-            android:textAllCaps="false"
-            android:textColor="#111827"
-            app:backgroundTint="#EEF2FF"
-            app:cornerRadius="10dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnTile3"
-            android:layout_width="0dp"
-            android:layout_height="54dp"
-            android:layout_marginEnd="6dp"
-            android:layout_weight="1"
-            android:text="L"
-            android:textAllCaps="false"
-            android:textColor="#111827"
-            app:backgroundTint="#EEF2FF"
-            app:cornerRadius="10dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnTile4"
-            android:layout_width="0dp"
-            android:layout_height="54dp"
-            android:layout_marginEnd="6dp"
-            android:layout_weight="1"
-            android:text="B"
-            android:textAllCaps="false"
-            android:textColor="#111827"
-            app:backgroundTint="#EEF2FF"
-            app:cornerRadius="10dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnTile5"
-            android:layout_width="0dp"
-            android:layout_height="54dp"
-            android:layout_weight="1"
-            android:text="A"
-            android:textAllCaps="false"
-            android:textColor="#111827"
-            app:backgroundTint="#EEF2FF"
-            app:cornerRadius="10dp" />
+            android:layout_marginStart="4dp"
+            android:fontFamily="sans-serif-bold"
+            android:text="360"
+            android:textColor="#333333"
+            android:textSize="13sp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/layoutAnswer"
+    <!-- Clue Section -->
+    <TextView
+        android:id="@+id/tvClueTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:alpha="0.6"
+        android:fontFamily="sans-serif-medium"
+        android:text="Sounds Like:"
+        android:textColor="#333333"
+        android:textSize="14sp"
+        android:letterSpacing="0.05"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnBack" />
+
+    <TextView
+        android:id="@+id/tvClueText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:weightSum="5"
-        app:layout_constraintTop_toBottomOf="@id/layoutTiles"
+        android:text="Mow Land"
+        android:textColor="#333333"
+        android:textSize="32sp"
+        android:fontFamily="sans-serif-black"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/tvClueTag" />
+
+    <!-- Answer Slots -->
+    <LinearLayout
+        android:id="@+id/layoutAnswerSlots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvClueText">
 
         <TextView
             android:id="@+id/tvSlot1"
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:layout_marginEnd="6dp"
-            android:layout_weight="1"
-            android:background="#F3F4F6"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/bg_input_box"
+            android:backgroundTint="#F5F5F5"
             android:gravity="center"
-            android:text="_"
-            android:textColor="#6B7280"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textColor="#333333"
+            android:textSize="22sp"
+            android:fontFamily="sans-serif-black" />
 
         <TextView
             android:id="@+id/tvSlot2"
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:layout_marginEnd="6dp"
-            android:layout_weight="1"
-            android:background="#F3F4F6"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/bg_input_box"
+            android:backgroundTint="#F5F5F5"
             android:gravity="center"
-            android:text="_"
-            android:textColor="#6B7280"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textColor="#333333"
+            android:textSize="22sp"
+            android:fontFamily="sans-serif-black" />
 
         <TextView
             android:id="@+id/tvSlot3"
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:layout_marginEnd="6dp"
-            android:layout_weight="1"
-            android:background="#F3F4F6"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/bg_input_box"
+            android:backgroundTint="#F5F5F5"
             android:gravity="center"
-            android:text="_"
-            android:textColor="#6B7280"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textColor="#333333"
+            android:textSize="22sp"
+            android:fontFamily="sans-serif-black" />
 
         <TextView
             android:id="@+id/tvSlot4"
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:layout_marginEnd="6dp"
-            android:layout_weight="1"
-            android:background="#F3F4F6"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/bg_input_box"
+            android:backgroundTint="#F5F5F5"
             android:gravity="center"
-            android:text="_"
-            android:textColor="#6B7280"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textColor="#333333"
+            android:textSize="22sp"
+            android:fontFamily="sans-serif-black" />
 
         <TextView
             android:id="@+id/tvSlot5"
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:layout_weight="1"
-            android:background="#F3F4F6"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/bg_input_box"
+            android:backgroundTint="#F5F5F5"
             android:gravity="center"
-            android:text="_"
-            android:textColor="#6B7280"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textColor="#333333"
+            android:textSize="22sp"
+            android:fontFamily="sans-serif-black" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tvAttemptsValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="0"
+        android:textColor="#94A3B8"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutAnswerSlots" />
+
+    <!-- Keyboard Section -->
     <LinearLayout
-        android:id="@+id/layoutActions"
+        android:id="@+id/layoutKeyboard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/layoutAnswer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        android:padding="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnClear"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:text="Clear"
-            android:textAllCaps="false"
-            android:textColor="#534AB7"
-            app:strokeColor="#534AB7" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <Button style="@style/GameKeyStyle" android:text="Q" />
+            <Button style="@style/GameKeyStyle" android:text="W" />
+            <Button style="@style/GameKeyStyle" android:text="E" />
+            <Button style="@style/GameKeyStyle" android:text="R" />
+            <Button style="@style/GameKeyStyle" android:text="T" />
+            <Button style="@style/GameKeyStyle" android:text="Y" />
+            <Button style="@style/GameKeyStyle" android:text="U" />
+            <Button style="@style/GameKeyStyle" android:text="I" />
+            <Button style="@style/GameKeyStyle" android:text="O" />
+            <Button style="@style/GameKeyStyle" android:text="P" />
+        </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSubmit"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:backgroundTint="#534AB7"
-            android:text="Submit"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <Button style="@style/GameKeyStyle" android:text="A" />
+            <Button style="@style/GameKeyStyle" android:text="S" />
+            <Button style="@style/GameKeyStyle" android:text="D" />
+            <Button style="@style/GameKeyStyle" android:text="F" />
+            <Button style="@style/GameKeyStyle" android:text="G" />
+            <Button style="@style/GameKeyStyle" android:text="H" />
+            <Button style="@style/GameKeyStyle" android:text="J" />
+            <Button style="@style/GameKeyStyle" android:text="K" />
+            <Button style="@style/GameKeyStyle" android:text="L" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <Button style="@style/GameKeyStyle" android:text="Z" />
+            <Button style="@style/GameKeyStyle" android:text="X" />
+            <Button style="@style/GameKeyStyle" android:text="C" />
+            <Button style="@style/GameKeyStyle" android:text="V" />
+            <Button style="@style/GameKeyStyle" android:text="B" />
+            <Button style="@style/GameKeyStyle" android:text="N" />
+            <Button style="@style/GameKeyStyle" android:text="M" />
+            <Button
+                android:id="@+id/btnBackspace"
+                style="@style/GameKeyStyle"
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:backgroundTint="#1E293B"
+                android:text="←"
+                app:rippleColor="#6366F1" />
+        </LinearLayout>
     </LinearLayout>
+
+    <!-- Hidden but required -->
+    <TextView android:id="@+id/tvCategoryValue" android:layout_width="1dp" android:layout_height="1dp" android:visibility="gone" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

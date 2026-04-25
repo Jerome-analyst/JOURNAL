@@ -1,0 +1,5 @@
+com.aibalance.tracker.test.app-jetified-core-1.6.1-0 C:\Users\jerom\.gradle\caches\9.0.0\transforms\e531b32ac67887f3600620ed0b69e2e9\transformed\jetified-core-1.6.1\res
+com.aibalance.tracker.test.app-androidTest-1 C:\Users\jerom\Downloads\JOURNAL\THESIS\app\build\generated\res\resValues\androidTest\debug
+com.aibalance.tracker.test.app-mergeDebugAndroidTestResources-2 C:\Users\jerom\Downloads\JOURNAL\THESIS\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+com.aibalance.tracker.test.app-mergeDebugAndroidTestResources-3 C:\Users\jerom\Downloads\JOURNAL\THESIS\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+com.aibalance.tracker.test.app-debugAndroidTest-4 C:\Users\jerom\Downloads\JOURNAL\THESIS\app\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources

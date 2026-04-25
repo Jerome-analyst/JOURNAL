@@ -13,6 +13,8 @@ import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.util.Calendar
+import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,6 +40,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val defaultDailyLimitMinutes = 60L
+    private val ioExecutor = Executors.newSingleThreadExecutor()
+    @Volatile
+    private var refreshInProgress = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -124,6 +129,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun refreshDashboard() {
+        if (refreshInProgress) return
+
         val dailyLimitMinutes = prefs.getInt(SettingsActivity.KEY_DAILY_LIMIT_MINUTES, defaultDailyLimitMinutes.toInt()).toLong()
             .coerceIn(10L, 120L)
         val bonusMinutes = prefs.getInt(SettingsActivity.KEY_BONUS_MINUTES_EARNED, 0).toLong()
@@ -144,28 +151,53 @@ class MainActivity : AppCompatActivity() {
 
         showUsageState()
 
-        val usageList = tracker.getAiUsage()
-        val items = usageList.map {
-            AiUsageItem(
-                appName = it.appName,
-                packageName = it.packageName,
-                minutes = it.minutes
-            )
-        }
+        refreshInProgress = true
+        ioExecutor.execute {
+            try {
+                val usageList = tracker.getAiUsage()
+                val items = usageList.map {
+                    AiUsageItem(
+                        appName = it.appName,
+                        packageName = it.packageName,
+                        minutes = it.minutes
+                    )
+                }
 
-        val totalToday = tracker.getTotalAiMinutesToday().coerceAtLeast(0L)
-        val remaining = (effectiveLimit - totalToday).coerceAtLeast(0L)
+                val totalToday = usageList.sumOf { it.minutes }.coerceAtLeast(0L)
+                val remaining = (effectiveLimit - totalToday).coerceAtLeast(0L)
+                val shouldAlertLimit = prefs.getBoolean(SettingsActivity.KEY_LIMIT_ALERT, true)
+                val todayKey = Calendar.getInstance().get(Calendar.DAY_OF_YEAR)
+                val lastCooldownDay = prefs.getInt(SettingsActivity.KEY_LAST_COOLDOWN_DAY, -1)
 
-        tvTodayUsage.text = getString(R.string.minutes_value, totalToday)
-        tvRemainingMinutes.text = getString(R.string.remaining_minutes_value, remaining)
-        progressDaily.progress = totalToday.coerceAtMost(effectiveLimit).toInt()
+                var weeklyUsageForCooldown: Long? = null
+                if (shouldAlertLimit && totalToday >= effectiveLimit && lastCooldownDay != todayKey) {
+                    weeklyUsageForCooldown = tracker.getTotalAiMinutesThisWeek()
+                }
 
-        updateWaterFill(totalToday, effectiveLimit)
-        adapter.submitList(items)
+                runOnUiThread {
+                    if (isFinishing || isDestroyed) {
+                        refreshInProgress = false
+                        return@runOnUiThread
+                    }
 
-        val shouldAlertLimit = prefs.getBoolean(SettingsActivity.KEY_LIMIT_ALERT, true)
-        if (shouldAlertLimit && totalToday >= effectiveLimit) {
-            openCooldown(totalToday, effectiveLimit, tracker.getTotalAiMinutesThisWeek())
+                    tvTodayUsage.text = getString(R.string.minutes_value, totalToday)
+                    tvRemainingMinutes.text = getString(R.string.remaining_minutes_value, remaining)
+                    progressDaily.progress = totalToday.coerceAtMost(effectiveLimit).toInt()
+                    updateWaterFill(totalToday, effectiveLimit)
+                    adapter.submitList(items)
+
+                    if (weeklyUsageForCooldown != null) {
+                        prefs.edit().putInt(SettingsActivity.KEY_LAST_COOLDOWN_DAY, todayKey).apply()
+                        openCooldown(totalToday, effectiveLimit, weeklyUsageForCooldown)
+                    }
+
+                    refreshInProgress = false
+                }
+            } catch (_: Exception) {
+                runOnUiThread {
+                    refreshInProgress = false
+                }
+            }
         }
     }
 
@@ -212,5 +244,10 @@ class MainActivity : AppCompatActivity() {
             putExtra(CooldownActivity.EXTRA_WEEKLY_USAGE_MINUTES, weeklyUsage)
         }
         startActivity(intent)
+    }
+
+    override fun onDestroy() {
+        ioExecutor.shutdownNow()
+        super.onDestroy()
     }
 }

@@ -1,0 +1,7 @@
+#Fri Apr 24 23:34:59 SGT 2026
+base.0=C\:\\Users\\jerom\\Downloads\\JOURNAL\\THESIS\\app\\build\\intermediates\\dex\\debugAndroidTest\\mergeExtDexDebugAndroidTest\\classes.dex
+base.1=C\:\\Users\\jerom\\Downloads\\JOURNAL\\THESIS\\app\\build\\intermediates\\dex\\debugAndroidTest\\mergeProjectDexDebugAndroidTest\\0\\classes.dex
+path.0=classes.dex
+path.1=0/classes.dex
+renamed.0=classes.dex
+renamed.1=classes2.dex

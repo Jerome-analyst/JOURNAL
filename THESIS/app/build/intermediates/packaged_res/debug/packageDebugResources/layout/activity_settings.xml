@@ -18,96 +18,29 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp">
+            android:padding="24dp">
 
             <TextView
                 android:id="@+id/tvSettingsTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
                 android:text="Settings"
-                android:textColor="#111827"
-                android:textSize="30sp"
-                android:textStyle="bold"
+                android:textColor="#333333"
+                android:textSize="24sp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
-                android:id="@+id/tvDailyLimitLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Daily limit (10-120 mins)"
-                android:textColor="#111827"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/tvSettingsTitle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <TextView
-                android:id="@+id/tvDailyLimitValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:text="60 min"
-                android:textColor="#534AB7"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/tvDailyLimitLabel"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <SeekBar
-                android:id="@+id/seekDailyLimit"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:max="110"
-                android:progress="50"
-                app:layout_constraintTop_toBottomOf="@id/tvDailyLimitValue"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <TextView
-                android:id="@+id/tvCooldownLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:text="Cooldown duration (5-60 mins)"
-                android:textColor="#111827"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/seekDailyLimit"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <TextView
-                android:id="@+id/tvCooldownValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:text="10 min"
-                android:textColor="#534AB7"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/tvCooldownLabel"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <SeekBar
-                android:id="@+id/seekCooldown"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:max="55"
-                android:progress="5"
-                app:layout_constraintTop_toBottomOf="@id/tvCooldownValue"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardToggles"
+                android:id="@+id/cardDailyLimit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="1dp"
-                app:strokeColor="#E5E7EB"
-                app:strokeWidth="1dp"
-                app:layout_constraintTop_toBottomOf="@id/seekCooldown"
+                android:layout_marginTop="24dp"
+                app:cardBackgroundColor="#F5F5F5"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:layout_constraintTop_toBottomOf="@id/tvSettingsTitle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
@@ -115,31 +48,72 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="10dp">
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Daily Usage Limit"
+                        android:textColor="#333333"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tvDailyLimitValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="sans-serif-bold"
+                        android:text="60 min"
+                        android:textColor="#6200EE"
+                        android:textSize="18sp" />
+
+                    <SeekBar
+                        android:id="@+id/seekDailyLimit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:progressTint="#6200EE"
+                        android:thumbTint="#6200EE" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardToggles"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="#F5F5F5"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:layout_constraintTop_toBottomOf="@id/cardDailyLimit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/switchGentleReminders"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Gentle reminders" />
+                        android:padding="12dp"
+                        android:text="Gentle reminders"
+                        android:textColor="#333333"
+                        app:thumbTint="#6200EE"
+                        app:trackTint="#BB86FC" />
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/switchLimitAlert"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Limit reached alert" />
-
-                    <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/switchStreakNotifications"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Streak notifications" />
-
-                    <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/switchWeeklySummary"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Weekly summary" />
+                        android:padding="12dp"
+                        android:text="Limit reached alert"
+                        android:textColor="#333333"
+                        app:thumbTint="#6200EE"
+                        app:trackTint="#BB86FC" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -147,9 +121,9 @@
                 android:id="@+id/btnSaveSettings"
                 android:layout_width="0dp"
                 android:layout_height="52dp"
-                android:layout_marginTop="16dp"
-                android:backgroundTint="#534AB7"
-                android:text="Save Settings"
+                android:layout_marginTop="32dp"
+                android:backgroundTint="#6200EE"
+                android:text="Save Preferences"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 app:cornerRadius="12dp"
@@ -157,11 +131,24 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="16dp"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnLogout"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="12dp"
+                android:text="Logout"
+                android:textAllCaps="false"
+                android:textColor="#EF4444"
                 app:layout_constraintTop_toBottomOf="@id/btnSaveSettings"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Hidden but required by code -->
+            <SeekBar android:id="@+id/seekCooldown" android:layout_width="1dp" android:layout_height="1dp" android:visibility="gone" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" />
+            <TextView android:id="@+id/tvCooldownValue" android:layout_width="1dp" android:layout_height="1dp" android:visibility="gone" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" />
+            <com.google.android.material.switchmaterial.SwitchMaterial android:id="@+id/switchStreakNotifications" android:layout_width="1dp" android:layout_height="1dp" android:visibility="gone" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" />
+            <com.google.android.material.switchmaterial.SwitchMaterial android:id="@+id/switchWeeklySummary" android:layout_width="1dp" android:layout_height="1dp" android:visibility="gone" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
@@ -169,11 +156,11 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:background="#FFFFFF"
-        app:itemIconTint="#534AB7"
-        app:itemTextColor="#534AB7"
-        app:labelVisibilityMode="labeled"
+        app:itemIconTint="#6200EE"
+        app:itemTextColor="#6200EE"
+        app:labelVisibilityMode="unlabeled"
         app:menu="@menu/menu_bottom_nav"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

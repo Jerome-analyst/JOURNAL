@@ -42,12 +42,12 @@ class CooldownActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cooldown)
 
-        val tvCountdown = findViewById<TextView>(R.id.tvCountdown)
-        val tvDailyValue = findViewById<TextView>(R.id.tvDailyValue)
-        val tvWeeklyValue = findViewById<TextView>(R.id.tvWeeklyValue)
+        val tvTimer = findViewById<TextView>(R.id.tvTimer)
+        val tvDailyUsage = findViewById<TextView>(R.id.tvDailyUsage)
+        val tvWeeklyUsage = findViewById<TextView>(R.id.tvWeeklyUsage)
         val progressDaily = findViewById<ProgressBar>(R.id.progressDailyCooldown)
         val progressWeekly = findViewById<ProgressBar>(R.id.progressWeekly)
-        val btnPlayMiniGame = findViewById<Button>(R.id.btnPlayMiniGame)
+        val btnPlayGame = findViewById<Button>(R.id.btnPlayGame)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
 
         val todayUsage = intent.getLongExtra(EXTRA_TODAY_USAGE_MINUTES, 0L)
@@ -57,16 +57,16 @@ class CooldownActivity : AppCompatActivity() {
 
         progressDaily.max = dailyLimit.toInt().coerceAtLeast(1)
         progressDaily.progress = todayUsage.coerceAtMost(dailyLimit).toInt()
-        tvDailyValue.text = getString(R.string.daily_usage_format, todayUsage, dailyLimit)
+        tvDailyUsage.text = getString(R.string.daily_usage_format, todayUsage, dailyLimit)
 
         progressWeekly.max = weeklyLimit.toInt().coerceAtLeast(1)
         progressWeekly.progress = weeklyUsage.coerceAtMost(weeklyLimit).toInt()
-        tvWeeklyValue.text = getString(R.string.weekly_usage_format, weeklyUsage)
+        tvWeeklyUsage.text = getString(R.string.weekly_usage_format, weeklyUsage)
 
         val cooldownMinutes = prefs.getInt(SettingsActivity.KEY_COOLDOWN_DURATION_MINUTES, 10)
-        startCooldownTimer(cooldownMinutes, tvCountdown)
+        startCooldownTimer(cooldownMinutes, tvTimer)
 
-        btnPlayMiniGame.setOnClickListener {
+        btnPlayGame.setOnClickListener {
             gameLauncher.launch(Intent(this, GameActivity::class.java))
         }
 
@@ -87,7 +87,7 @@ class CooldownActivity : AppCompatActivity() {
         }
     }
 
-    private fun startCooldownTimer(minutes: Int, tvCountdown: TextView) {
+    private fun startCooldownTimer(minutes: Int, tvTimer: TextView) {
         val durationMillis = minutes.coerceAtLeast(1) * 60_000L
         timer?.cancel()
 
@@ -97,11 +97,11 @@ class CooldownActivity : AppCompatActivity() {
                 val totalSeconds = millisUntilFinished / 1000L
                 val mm = totalSeconds / 60L
                 val ss = totalSeconds % 60L
-                tvCountdown.text = String.format("%02d:%02d", mm, ss)
+                tvTimer.text = String.format("%02d:%02d", mm, ss)
             }
 
             override fun onFinish() {
-                tvCountdown.text = "00:00"
+                tvTimer.text = "00:00"
             }
         }.start()
     }

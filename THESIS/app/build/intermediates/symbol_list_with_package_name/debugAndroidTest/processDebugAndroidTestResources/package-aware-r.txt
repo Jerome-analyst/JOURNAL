@@ -1,0 +1,3 @@
+com.aibalance.tracker.test
+style WhiteBackgroundDialogTheme
+style WhiteBackgroundTheme

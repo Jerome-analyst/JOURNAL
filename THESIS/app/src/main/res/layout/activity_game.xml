@@ -1,238 +1,117 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:padding="20dp">
+﻿<?xml version=""1.0"" encoding=""utf-8""?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=""http://schemas.android.com/apk/res/android""
+    xmlns:app=""http://schemas.android.com/apk/res-auto""
+    android:layout_width=""match_parent""
+    android:layout_height=""match_parent""
+    android:background=""#F5F7FA"">
 
-    <TextView
-        android:id="@+id/tvGameTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Mini-game"
-        android:textColor="#111827"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+    <androidx.cardview.widget.CardView
+        android:layout_width=""0dp""
+        android:layout_height=""wrap_content""
+        android:layout_marginHorizontal=""24dp""
+        app:cardCornerRadius=""24dp""
+        app:cardElevation=""8dp""
+        app:layout_constraintBottom_toBottomOf=""parent""
+        app:layout_constraintEnd_toEndOf=""parent""
+        app:layout_constraintStart_toStartOf=""parent""
+        app:layout_constraintTop_toTopOf=""parent"">
 
-    <TextView
-        android:id="@+id/tvGameSubtitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:text="Unscramble 5 words -> earn +3 minutes"
-        android:textColor="#6B7280"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/tvGameTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width=""match_parent""
+            android:layout_height=""wrap_content""
+            android:padding=""32dp"">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardReward"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:visibility="gone"
-        app:cardBackgroundColor="#ECFDF5"
-        app:cardCornerRadius="12dp"
-        app:layout_constraintTop_toBottomOf="@id/tvGameSubtitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+            <TextView
+                android:id=""@+id/tvGameTitle""
+                android:layout_width=""0dp""
+                android:layout_height=""wrap_content""
+                android:gravity=""center""
+                android:text=""Unscramble to Win Details""
+                android:textColor=""#2D3748""
+                android:textSize=""24sp""
+                android:fontFamily=""sans-serif-black""
+                app:layout_constraintEnd_toEndOf=""parent""
+                app:layout_constraintStart_toStartOf=""parent""
+                app:layout_constraintTop_toTopOf=""parent"" />
 
-        <TextView
-            android:id="@+id/tvRewardBanner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:text="+3 minutes earned"
-            android:textColor="#065F46"
-            android:textStyle="bold" />
-    </com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id=""@+id/tvScrambledWord""
+                android:layout_width=""wrap_content""
+                android:layout_height=""wrap_content""
+                android:layout_marginTop=""32dp""
+                android:letterSpacing=""0.1""
+                android:text=""O R D W""
+                android:textColor=""#4A5568""
+                android:textSize=""40sp""
+                android:textStyle=""bold""
+                app:layout_constraintEnd_toEndOf=""parent""
+                app:layout_constraintStart_toStartOf=""parent""
+                app:layout_constraintTop_toBottomOf=""@id/tvGameTitle"" />
 
-    <LinearLayout
-        android:id="@+id/layoutTiles"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:weightSum="5"
-        app:layout_constraintTop_toBottomOf="@id/cardReward"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id=""@+id/layoutGameInput""
+                style=""@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox""
+                android:layout_width=""0dp""
+                android:layout_height=""wrap_content""
+                android:layout_marginTop=""32dp""
+                app:boxCornerRadiusBottomEnd=""12dp""
+                app:boxCornerRadiusBottomStart=""12dp""
+                app:boxCornerRadiusTopEnd=""12dp""
+                app:boxCornerRadiusTopStart=""12dp""
+                app:layout_constraintEnd_toEndOf=""parent""
+                app:layout_constraintStart_toStartOf=""parent""
+                app:layout_constraintTop_toBottomOf=""@id/tvScrambledWord"">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnTile1"
-            android:layout_width="0dp"
-            android:layout_height="54dp"
-            android:layout_marginEnd="6dp"
-            android:layout_weight="1"
-            android:text="A"
-            android:textAllCaps="false"
-            android:textColor="#111827"
-            app:backgroundTint="#EEF2FF"
-            app:cornerRadius="10dp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id=""@+id/etAnswer""
+                    android:layout_width=""match_parent""
+                    android:layout_height=""wrap_content""
+                    android:gravity=""center""
+                    android:hint=""Your Answer""
+                    android:inputType=""textCapCharacters"" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnTile2"
-            android:layout_width="0dp"
-            android:layout_height="54dp"
-            android:layout_marginEnd="6dp"
-            android:layout_weight="1"
-            android:text="I"
-            android:textAllCaps="false"
-            android:textColor="#111827"
-            app:backgroundTint="#EEF2FF"
-            app:cornerRadius="10dp" />
+            <com.google.android.material.button.MaterialButton
+                android:id=""@+id/btnSubmit""
+                android:layout_width=""0dp""
+                android:layout_height=""56dp""
+                android:layout_marginTop=""24dp""
+                android:backgroundTint=""#38A169""
+                android:text=""Submit""
+                android:textAllCaps=""false""
+                android:textSize=""16sp""
+                app:cornerRadius=""14dp""
+                app:layout_constraintEnd_toEndOf=""parent""
+                app:layout_constraintStart_toStartOf=""parent""
+                app:layout_constraintTop_toBottomOf=""@id/layoutGameInput"" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnTile3"
-            android:layout_width="0dp"
-            android:layout_height="54dp"
-            android:layout_marginEnd="6dp"
-            android:layout_weight="1"
-            android:text="L"
-            android:textAllCaps="false"
-            android:textColor="#111827"
-            app:backgroundTint="#EEF2FF"
-            app:cornerRadius="10dp" />
+            <TextView
+                android:id=""@+id/tvGameFeedback""
+                android:layout_width=""0dp""
+                android:layout_height=""wrap_content""
+                android:layout_marginTop=""24dp""
+                android:gravity=""center""
+                android:text=""""
+                android:textColor=""#E53E3E""
+                android:textSize=""16sp""
+                android:textStyle=""bold""
+                app:layout_constraintEnd_toEndOf=""parent""
+                app:layout_constraintStart_toStartOf=""parent""
+                app:layout_constraintTop_toBottomOf=""@id/btnSubmit"" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnTile4"
-            android:layout_width="0dp"
-            android:layout_height="54dp"
-            android:layout_marginEnd="6dp"
-            android:layout_weight="1"
-            android:text="B"
-            android:textAllCaps="false"
-            android:textColor="#111827"
-            app:backgroundTint="#EEF2FF"
-            app:cornerRadius="10dp" />
+            <com.google.android.material.button.MaterialButton
+                android:id=""@+id/btnBack""
+                style=""@style/Widget.MaterialComponents.Button.TextButton""
+                android:layout_width=""0dp""
+                android:layout_height=""wrap_content""
+                android:layout_marginTop=""16dp""
+                android:text=""I give up""
+                android:textAllCaps=""false""
+                android:textColor=""#718096""
+                app:layout_constraintEnd_toEndOf=""parent""
+                app:layout_constraintStart_toStartOf=""parent""
+                app:layout_constraintTop_toBottomOf=""@id/tvGameFeedback"" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnTile5"
-            android:layout_width="0dp"
-            android:layout_height="54dp"
-            android:layout_weight="1"
-            android:text="A"
-            android:textAllCaps="false"
-            android:textColor="#111827"
-            app:backgroundTint="#EEF2FF"
-            app:cornerRadius="10dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layoutAnswer"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:weightSum="5"
-        app:layout_constraintTop_toBottomOf="@id/layoutTiles"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <TextView
-            android:id="@+id/tvSlot1"
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:layout_marginEnd="6dp"
-            android:layout_weight="1"
-            android:background="#F3F4F6"
-            android:gravity="center"
-            android:text="_"
-            android:textColor="#6B7280"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvSlot2"
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:layout_marginEnd="6dp"
-            android:layout_weight="1"
-            android:background="#F3F4F6"
-            android:gravity="center"
-            android:text="_"
-            android:textColor="#6B7280"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvSlot3"
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:layout_marginEnd="6dp"
-            android:layout_weight="1"
-            android:background="#F3F4F6"
-            android:gravity="center"
-            android:text="_"
-            android:textColor="#6B7280"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvSlot4"
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:layout_marginEnd="6dp"
-            android:layout_weight="1"
-            android:background="#F3F4F6"
-            android:gravity="center"
-            android:text="_"
-            android:textColor="#6B7280"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvSlot5"
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:layout_weight="1"
-            android:background="#F3F4F6"
-            android:gravity="center"
-            android:text="_"
-            android:textColor="#6B7280"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layoutActions"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/layoutAnswer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnClear"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:text="Clear"
-            android:textAllCaps="false"
-            android:textColor="#534AB7"
-            app:strokeColor="#534AB7" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSubmit"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:backgroundTint="#534AB7"
-            android:text="Submit"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF" />
-    </LinearLayout>
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
