@@ -6,6 +6,8 @@
     <string name="percentage_value">%1$d%%</string>
     <string name="daily_usage_format">%1$d / %2$d min</string>
     <string name="weekly_usage_format">%1$d min this week</string>
+    <string name="today_usage_label">Today\'s Usage</string>
+    <string name="weekly_usage_label">Weekly Usage</string>
     <string name="streak_days_format">%1$d day streak</string>
     <string name="words_solved_format">%1$d solved</string>
     <string name="bonus_minutes_format">+%1$d bonus min</string>
@@ -16,4 +18,8 @@
     <string name="signup_failed">Sign up failed. Please try again.</string>
     <string name="google_sign_in_failed">Google sign-in failed. Please try again.</string>
     <string name="default_web_client_id">YOUR_FIREBASE_WEB_CLIENT_ID</string>
+    <string name="settings_saved">Settings saved!</string>
+    <string name="cooldown_complete">Cooldown complete! Great job taking a break.</string>
+    <string name="onboarding_title">Welcome to AI Balance</string>
+    <string name="onboarding_subtitle">Build healthier AI habits, one day at a time.</string>
 </resources>

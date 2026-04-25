@@ -3,6 +3,8 @@
 
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -13,8 +15,14 @@
         android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
 
         <activity
+            android:name="com.aibalance.tracker.StatsActivity"
+            android:exported="false"
+            android:launchMode="singleTop" />
+
+        <activity
             android:name="com.aibalance.tracker.SettingsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleTop" />
 
         <activity
             android:name="com.aibalance.tracker.GameActivity"
@@ -22,7 +30,8 @@
 
         <activity
             android:name="com.aibalance.tracker.CooldownActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleTop" />
 
         <activity
             android:name="com.aibalance.tracker.SignupActivity"
@@ -30,6 +39,11 @@
 
         <activity
             android:name="com.aibalance.tracker.MainActivity"
+            android:exported="false"
+            android:launchMode="singleTop" />
+
+        <activity
+            android:name="com.aibalance.tracker.OnboardingActivity"
             android:exported="false" />
 
         <activity

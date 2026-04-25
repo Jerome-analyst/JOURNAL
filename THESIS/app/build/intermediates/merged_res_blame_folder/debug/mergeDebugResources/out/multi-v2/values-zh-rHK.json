@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.aibalance.tracker.app-mergeDebugResources-37:/values-zh-rHK/values-zh-rHK.xml",
+            "outputFile": "com.aibalance.tracker.app-mergeDebugResources-45:/values-zh-rHK/values-zh-rHK.xml",
             "map": [
                 {
                     "source": "C:\\Users\\jerom\\.gradle\\caches\\9.0.0\\transforms\\66f4287252582c4aef03a154becb5c7c\\transformed\\appcompat-1.7.0\\res\\values-zh-rHK\\values-zh-rHK.xml",

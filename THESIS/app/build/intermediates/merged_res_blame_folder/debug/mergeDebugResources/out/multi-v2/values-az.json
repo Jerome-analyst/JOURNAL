@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.aibalance.tracker.app-mergeDebugResources-37:/values-az/values-az.xml",
+            "outputFile": "com.aibalance.tracker.app-mergeDebugResources-45:/values-az/values-az.xml",
             "map": [
                 {
                     "source": "C:\\Users\\jerom\\.gradle\\caches\\9.0.0\\transforms\\9cf1e6b85d2d538a42615c5bc93a0930\\transformed\\jetified-play-services-base-18.3.0\\res\\values-az\\values.xml",

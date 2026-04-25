@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="accent_blue">#378ADD</color>
+    <color name="accent_green">#1D9E75</color>
+    <color name="accent_purple">#534AB7</color>
+    <color name="accent_red">#A32D2D</color>
+    <color name="app_chatai">#3498DB</color>
+    <color name="app_chatgpt">#10A37F</color>
+    <color name="app_claude">#D97706</color>
+    <color name="app_dola">#9B59B6</color>
+    <color name="app_gemini">#4285F4</color>
+    <color name="app_genie">#F39C12</color>
+    <color name="app_perplexity">#20B2AA</color>
+    <color name="bg_dark">#12121F</color>
+    <color name="border">#2A2A45</color>
+    <color name="nav_active">#534AB7</color>
+    <color name="nav_inactive">#555577</color>
+    <color name="surface_card">#1A1A30</color>
+    <color name="text_primary">#E8E8F8</color>
+    <color name="text_secondary">#555577</color>
     <string name="app_name">AI Balance</string>
     <string name="auth_failed">Authentication failed. Please try again.</string>
     <string name="bonus_minutes_format">+%1$d bonus min</string>
+    <string name="cooldown_complete">Cooldown complete! Great job taking a break.</string>
     <string name="daily_usage_format">%1$d / %2$d min</string>
     <string name="default_web_client_id" translatable="false">351969612283-4lfem2jd6a6o4kc52unu2h1u8b8q37b4.apps.googleusercontent.com</string>
     <string name="fill_required_fields">Please fill in all required fields.</string>
@@ -14,28 +33,55 @@
     <string name="google_sign_in_failed">Google sign-in failed. Please try again.</string>
     <string name="google_storage_bucket" translatable="false">thesis-c8207.firebasestorage.app</string>
     <string name="minutes_value">%1$d min</string>
+    <string name="onboarding_subtitle">Build healthier AI habits, one day at a time.</string>
+    <string name="onboarding_title">Welcome to AI Balance</string>
     <string name="passwords_do_not_match">Passwords do not match.</string>
     <string name="percentage_value">%1$d%%</string>
     <string name="project_id" translatable="false">thesis-c8207</string>
     <string name="remaining_minutes_value">%1$d min remaining</string>
+    <string name="settings_saved">Settings saved!</string>
     <string name="signup_failed">Sign up failed. Please try again.</string>
     <string name="streak_days_format">%1$d day streak</string>
+    <string name="today_usage_label">Today\'s Usage</string>
     <string name="weekly_usage_format">%1$d min this week</string>
+    <string name="weekly_usage_label">Weekly Usage</string>
     <string name="words_solved_format">%1$d solved</string>
     <style name="GameKeyStyle" parent="Widget.MaterialComponents.Button">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">44dp</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:layout_margin">1.5dp</item>
+        <item name="android:layout_margin">2dp</item>
         <item name="android:padding">0dp</item>
         <item name="android:minWidth">0dp</item>
         <item name="android:minHeight">0dp</item>
         <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">sans-serif-bold</item>
-        <item name="android:textColor">#333333</item>
-        <item name="backgroundTint">#F5F5F5</item>
-        <item name="cornerRadius">6dp</item>
+        <item name="android:textColor">#E8E8F8</item>
+        <item name="backgroundTint">#2A2A45</item>
+        <item name="cornerRadius">8dp</item>
         <item name="android:textAllCaps">false</item>
-        <item name="rippleColor">#BB86FC</item>
+        <item name="rippleColor">#534AB7</item>
+    </style>
+    <style name="SlotStyle">
+        <item name="android:layout_width">52dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:background">@drawable/bg_slot</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#E8E8F8</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="TileStyle">
+        <item name="android:layout_width">58dp</item>
+        <item name="android:layout_height">66dp</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:background">@drawable/bg_tile</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#E8E8F8</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:fontFamily">sans-serif-bold</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
     </style>
 </resources>

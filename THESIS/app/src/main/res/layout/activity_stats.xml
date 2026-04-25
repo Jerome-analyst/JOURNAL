@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_dark">
+
+    <!-- Header -->
+    <LinearLayout
+        android:id="@+id/statsHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            app:tint="@color/text_secondary" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:text="Weekly Stats"
+            android:textColor="@color/text_primary"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-black" />
+    </LinearLayout>
+
+    <!-- Scrollable content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/statsHeader"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="24dp">
+
+            <!-- ── Weekly bar chart card ── -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:cardBackgroundColor="@color/surface_card"
+                app:cardCornerRadius="20dp"
+                app:strokeColor="@color/border"
+                app:strokeWidth="1dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="This Week"
+                        android:textColor="@color/text_primary"
+                        android:textSize="15sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginBottom="20dp" />
+
+                    <!-- Bar chart: 7 columns Mon–Sun -->
+                    <LinearLayout
+                        android:id="@+id/chartContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="160dp"
+                        android:orientation="horizontal"
+                        android:gravity="bottom">
+
+                        <!-- Mon -->
+                        <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="bottom|center_horizontal">
+                            <View android:id="@+id/barMon" android:layout_width="22dp" android:layout_height="4dp" android:background="@color/accent_blue"/>
+                            <TextView android:id="@+id/tvBarMon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="Mon" android:textColor="@color/text_secondary" android:textSize="10sp" android:gravity="center"/>
+                        </LinearLayout>
+                        <!-- Tue -->
+                        <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="bottom|center_horizontal">
+                            <View android:id="@+id/barTue" android:layout_width="22dp" android:layout_height="4dp" android:background="@color/accent_blue"/>
+                            <TextView android:id="@+id/tvBarTue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="Tue" android:textColor="@color/text_secondary" android:textSize="10sp" android:gravity="center"/>
+                        </LinearLayout>
+                        <!-- Wed -->
+                        <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="bottom|center_horizontal">
+                            <View android:id="@+id/barWed" android:layout_width="22dp" android:layout_height="4dp" android:background="@color/accent_blue"/>
+                            <TextView android:id="@+id/tvBarWed" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="Wed" android:textColor="@color/text_secondary" android:textSize="10sp" android:gravity="center"/>
+                        </LinearLayout>
+                        <!-- Thu -->
+                        <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="bottom|center_horizontal">
+                            <View android:id="@+id/barThu" android:layout_width="22dp" android:layout_height="4dp" android:background="@color/accent_blue"/>
+                            <TextView android:id="@+id/tvBarThu" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="Thu" android:textColor="@color/text_secondary" android:textSize="10sp" android:gravity="center"/>
+                        </LinearLayout>
+                        <!-- Fri -->
+                        <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="bottom|center_horizontal">
+                            <View android:id="@+id/barFri" android:layout_width="22dp" android:layout_height="4dp" android:background="@color/accent_blue"/>
+                            <TextView android:id="@+id/tvBarFri" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="Fri" android:textColor="@color/text_secondary" android:textSize="10sp" android:gravity="center"/>
+                        </LinearLayout>
+                        <!-- Sat -->
+                        <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="bottom|center_horizontal">
+                            <View android:id="@+id/barSat" android:layout_width="22dp" android:layout_height="4dp" android:background="@color/accent_blue"/>
+                            <TextView android:id="@+id/tvBarSat" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="Sat" android:textColor="@color/text_secondary" android:textSize="10sp" android:gravity="center"/>
+                        </LinearLayout>
+                        <!-- Sun -->
+                        <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical" android:gravity="bottom|center_horizontal">
+                            <View android:id="@+id/barSun" android:layout_width="22dp" android:layout_height="4dp" android:background="@color/accent_blue"/>
+                            <TextView android:id="@+id/tvBarSun" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="Sun" android:textColor="@color/text_secondary" android:textSize="10sp" android:gravity="center"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Chart legend -->
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="12dp" android:layout_gravity="end">
+                        <View android:layout_width="10dp" android:layout_height="10dp" android:background="@color/accent_purple" android:layout_marginEnd="4dp" android:layout_gravity="center_vertical"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Today  " android:textColor="@color/text_secondary" android:textSize="10sp"/>
+                        <View android:layout_width="10dp" android:layout_height="10dp" android:background="@color/accent_red" android:layout_marginEnd="4dp" android:layout_gravity="center_vertical"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Over limit  " android:textColor="@color/text_secondary" android:textSize="10sp"/>
+                        <View android:layout_width="10dp" android:layout_height="10dp" android:background="@color/accent_blue" android:layout_marginEnd="4dp" android:layout_gravity="center_vertical"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Normal" android:textColor="@color/text_secondary" android:textSize="10sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ── Summary cards row ── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    app:cardBackgroundColor="@color/surface_card"
+                    app:cardCornerRadius="16dp"
+                    app:strokeColor="@color/border"
+                    app:strokeWidth="1dp"
+                    app:cardElevation="0dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="THIS WEEK" android:textColor="@color/text_secondary" android:textSize="10sp" android:textStyle="bold"/>
+                        <TextView android:id="@+id/tvWeekTotal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="0 min" android:textColor="@color/text_primary" android:textSize="22sp" android:fontFamily="sans-serif-black"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="total AI time" android:textColor="@color/text_secondary" android:textSize="11sp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    app:cardBackgroundColor="@color/surface_card"
+                    app:cardCornerRadius="16dp"
+                    app:strokeColor="@color/border"
+                    app:strokeWidth="1dp"
+                    app:cardElevation="0dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DAILY AVG" android:textColor="@color/text_secondary" android:textSize="10sp" android:textStyle="bold"/>
+                        <TextView android:id="@+id/tvDailyAvg" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="0 min" android:textColor="@color/accent_purple" android:textSize="22sp" android:fontFamily="sans-serif-black"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="per day" android:textColor="@color/text_secondary" android:textSize="11sp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- ── Per-app weekly breakdown ── -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:cardBackgroundColor="@color/surface_card"
+                app:cardCornerRadius="20dp"
+                app:strokeColor="@color/border"
+                app:strokeWidth="1dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="App Breakdown (This Week)"
+                        android:textColor="@color/text_primary"
+                        android:textSize="15sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- ChatGPT weekly -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="14dp">
+                        <TextView android:layout_width="36dp" android:layout_height="36dp" android:gravity="center" android:text="G" android:textColor="#FFF" android:textSize="14sp" android:fontFamily="sans-serif-bold" android:background="@color/app_chatgpt"/>
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="12dp">
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="ChatGPT" android:textColor="@color/text_primary" android:textSize="13sp"/>
+                                <TextView android:id="@+id/tvWeekChatGPT" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 min" android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                            </LinearLayout>
+                            <ProgressBar android:id="@+id/pbWeekChatGPT" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginTop="6dp" android:max="100" android:progressDrawable="@drawable/custom_progress_bar"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Claude weekly -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="14dp">
+                        <TextView android:layout_width="36dp" android:layout_height="36dp" android:gravity="center" android:text="C" android:textColor="#FFF" android:textSize="14sp" android:fontFamily="sans-serif-bold" android:background="@color/app_claude"/>
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="12dp">
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Claude" android:textColor="@color/text_primary" android:textSize="13sp"/>
+                                <TextView android:id="@+id/tvWeekClaude" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 min" android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                            </LinearLayout>
+                            <ProgressBar android:id="@+id/pbWeekClaude" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginTop="6dp" android:max="100" android:progressDrawable="@drawable/custom_progress_bar"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Gemini weekly -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="14dp">
+                        <TextView android:layout_width="36dp" android:layout_height="36dp" android:gravity="center" android:text="G" android:textColor="#FFF" android:textSize="14sp" android:fontFamily="sans-serif-bold" android:background="@color/app_gemini"/>
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="12dp">
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Gemini" android:textColor="@color/text_primary" android:textSize="13sp"/>
+                                <TextView android:id="@+id/tvWeekGemini" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 min" android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                            </LinearLayout>
+                            <ProgressBar android:id="@+id/pbWeekGemini" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginTop="6dp" android:max="100" android:progressDrawable="@drawable/custom_progress_bar"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Perplexity weekly -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="14dp">
+                        <TextView android:layout_width="36dp" android:layout_height="36dp" android:gravity="center" android:text="P" android:textColor="#FFF" android:textSize="14sp" android:fontFamily="sans-serif-bold" android:background="@color/app_perplexity"/>
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="12dp">
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Perplexity" android:textColor="@color/text_primary" android:textSize="13sp"/>
+                                <TextView android:id="@+id/tvWeekPerplexity" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 min" android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                            </LinearLayout>
+                            <ProgressBar android:id="@+id/pbWeekPerplexity" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginTop="6dp" android:max="100" android:progressDrawable="@drawable/custom_progress_bar"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Dola weekly -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="14dp">
+                        <TextView android:layout_width="36dp" android:layout_height="36dp" android:gravity="center" android:text="D" android:textColor="#FFF" android:textSize="14sp" android:fontFamily="sans-serif-bold" android:background="@color/app_dola"/>
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="12dp">
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Dola" android:textColor="@color/text_primary" android:textSize="13sp"/>
+                                <TextView android:id="@+id/tvWeekDola" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 min" android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                            </LinearLayout>
+                            <ProgressBar android:id="@+id/pbWeekDola" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginTop="6dp" android:max="100" android:progressDrawable="@drawable/custom_progress_bar"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Genie AI weekly -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="14dp">
+                        <TextView android:layout_width="36dp" android:layout_height="36dp" android:gravity="center" android:text="G" android:textColor="#FFF" android:textSize="14sp" android:fontFamily="sans-serif-bold" android:background="@color/app_genie"/>
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="12dp">
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Genie AI" android:textColor="@color/text_primary" android:textSize="13sp"/>
+                                <TextView android:id="@+id/tvWeekGenie" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 min" android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                            </LinearLayout>
+                            <ProgressBar android:id="@+id/pbWeekGenie" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginTop="6dp" android:max="100" android:progressDrawable="@drawable/custom_progress_bar"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Chat AI weekly -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                        <TextView android:layout_width="36dp" android:layout_height="36dp" android:gravity="center" android:text="C" android:textColor="#FFF" android:textSize="14sp" android:fontFamily="sans-serif-bold" android:background="@color/app_chatai"/>
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="12dp">
+                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Chat AI" android:textColor="@color/text_primary" android:textSize="13sp"/>
+                                <TextView android:id="@+id/tvWeekChatAI" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 min" android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                            </LinearLayout>
+                            <ProgressBar android:id="@+id/pbWeekChatAI" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginTop="6dp" android:max="100" android:progressDrawable="@drawable/custom_progress_bar"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ── Daily limit compliance list ── -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:cardBackgroundColor="@color/surface_card"
+                app:cardCornerRadius="20dp"
+                app:strokeColor="@color/border"
+                app:strokeWidth="1dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:id="@+id/dailyLimitList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Daily Limit Progress"
+                        android:textColor="@color/text_primary"
+                        android:textSize="15sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- Day rows will be added programmatically by StatsActivity -->
+                    <TextView
+                        android:id="@+id/tvDailyListPlaceholder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Loading..."
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Bottom nav -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/surface_card"
+        app:itemIconTint="@color/nav_item_colors"
+        app:itemTextColor="@color/nav_item_colors"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/menu_bottom_nav" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

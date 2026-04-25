@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.aibalance.tracker.app-mergeDebugResources-37:/values-small-v4/values-small-v4.xml",
+            "outputFile": "com.aibalance.tracker.app-mergeDebugResources-45:/values-small-v4/values-small-v4.xml",
             "map": [
                 {
                     "source": "C:\\Users\\jerom\\.gradle\\caches\\9.0.0\\transforms\\1c78c773c0ea50c1bdca83ae116c6a3c\\transformed\\material-1.12.0\\res\\values-small-v4\\values-small-v4.xml",

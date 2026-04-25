@@ -95,8 +95,12 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun goToMain() {
-        startActivity(Intent(this, MainActivity::class.java))
-        finish()
+        val prefs = getSharedPreferences(SettingsActivity.PREFS_NAME, MODE_PRIVATE)
+        val onboardingDone = prefs.getBoolean(OnboardingActivity.KEY_ONBOARDING_DONE, false)
+        val dest = if (onboardingDone) MainActivity::class.java else OnboardingActivity::class.java
+        startActivity(Intent(this, dest).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        })
     }
 
     private fun showError(message: String) {

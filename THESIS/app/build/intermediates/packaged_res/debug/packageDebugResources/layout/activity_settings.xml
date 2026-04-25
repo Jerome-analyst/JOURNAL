@@ -1,48 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="@color/bg_dark">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/scrollSettings"
-        android:layout_width="0dp"
+    <!-- Header with back arrow -->
+    <LinearLayout
+        android:id="@+id/settingsHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnBackSettings"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            app:tint="@color/text_secondary" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:text="Settings"
+            android:textColor="@color/text_primary"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-black" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:fillViewport="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottomNav"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/settingsHeader"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="24dp">
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="32dp">
 
+            <!-- Section label -->
             <TextView
-                android:id="@+id/tvSettingsTitle"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:text="Settings"
-                android:textColor="#333333"
-                android:textSize="24sp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="LIMITS"
+                android:textColor="@color/text_secondary"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"/>
 
+            <!-- Limits card -->
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardDailyLimit"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                app:cardBackgroundColor="#F5F5F5"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:layout_constraintTop_toBottomOf="@id/tvSettingsTitle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:cardBackgroundColor="@color/surface_card"
+                app:cardCornerRadius="20dp"
+                app:strokeColor="@color/border"
+                app:strokeWidth="1dp"
+                app:cardElevation="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -50,120 +78,135 @@
                     android:orientation="vertical"
                     android:padding="20dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Daily Usage Limit"
-                        android:textColor="#333333"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tvDailyLimitValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:fontFamily="sans-serif-bold"
-                        android:text="60 min"
-                        android:textColor="#6200EE"
-                        android:textSize="18sp" />
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Daily AI Limit" android:textColor="@color/text_primary" android:textSize="14sp" android:fontFamily="sans-serif-medium"/>
+                        <TextView android:id="@+id/tvDailyLimitValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="60 min" android:textColor="@color/accent_purple" android:textSize="14sp" android:fontFamily="sans-serif-bold"/>
+                    </LinearLayout>
 
                     <SeekBar
                         android:id="@+id/seekDailyLimit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:progressTint="#6200EE"
-                        android:thumbTint="#6200EE" />
+                        android:layout_marginTop="12dp"
+                        android:max="110"
+                        android:progress="50"
+                        android:progressTint="@color/accent_purple"
+                        android:thumbTint="@color/accent_purple"/>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/border" android:layout_marginVertical="16dp"/>
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Cooldown Duration" android:textColor="@color/text_primary" android:textSize="14sp" android:fontFamily="sans-serif-medium"/>
+                        <TextView android:id="@+id/tvCooldownValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="10 min" android:textColor="@color/accent_blue" android:textSize="14sp" android:fontFamily="sans-serif-bold"/>
+                    </LinearLayout>
+
+                    <SeekBar
+                        android:id="@+id/seekCooldown"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:max="55"
+                        android:progress="5"
+                        android:progressTint="@color/accent_blue"
+                        android:thumbTint="@color/accent_blue"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardToggles"
-                android:layout_width="0dp"
+            <!-- Notifications section label -->
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:cardBackgroundColor="#F5F5F5"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:layout_constraintTop_toBottomOf="@id/cardDailyLimit"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="8dp"
+                android:text="NOTIFICATIONS"
+                android:textColor="@color/text_secondary"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"/>
+
+            <!-- Notifications card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/surface_card"
+                app:cardCornerRadius="20dp"
+                app:strokeColor="@color/border"
+                app:strokeWidth="1dp"
+                app:cardElevation="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="8dp">
+                    android:paddingHorizontal="20dp">
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/switchGentleReminders"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="12dp"
-                        android:text="Gentle reminders"
-                        android:textColor="#333333"
-                        app:thumbTint="#6200EE"
-                        app:trackTint="#BB86FC" />
+                        android:text="Gentle Reminders"
+                        android:textColor="@color/text_primary"
+                        android:checked="true"/>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/border"/>
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/switchLimitAlert"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="12dp"
-                        android:text="Limit reached alert"
-                        android:textColor="#333333"
-                        app:thumbTint="#6200EE"
-                        app:trackTint="#BB86FC" />
+                        android:text="Limit Alerts"
+                        android:textColor="@color/text_primary"
+                        android:checked="true"/>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/border"/>
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchStreakNotifications"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Streak Reminders"
+                        android:textColor="@color/text_primary"
+                        android:checked="true"/>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/border"/>
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchWeeklySummary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Weekly Summary"
+                        android:textColor="@color/text_primary"
+                        android:checked="true"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Save button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSaveSettings"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="52dp"
-                android:layout_marginTop="32dp"
-                android:backgroundTint="#6200EE"
-                android:text="Save Preferences"
+                android:layout_marginTop="24dp"
+                android:text="Save Settings"
                 android:textAllCaps="false"
-                android:textColor="#FFFFFF"
-                app:cornerRadius="12dp"
-                app:layout_constraintTop_toBottomOf="@id/cardToggles"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:textSize="15sp"
+                app:backgroundTint="@color/accent_purple"
+                app:cornerRadius="14dp" />
 
+            <!-- Logout -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLogout"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="0dp"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:layout_marginTop="12dp"
                 android:text="Logout"
                 android:textAllCaps="false"
-                android:textColor="#EF4444"
-                app:layout_constraintTop_toBottomOf="@id/btnSaveSettings"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:textSize="15sp"
+                android:textColor="@color/accent_red"
+                app:strokeColor="@color/accent_red"
+                app:cornerRadius="14dp" />
 
-            <!-- Hidden but required by code -->
-            <SeekBar android:id="@+id/seekCooldown" android:layout_width="1dp" android:layout_height="1dp" android:visibility="gone" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" />
-            <TextView android:id="@+id/tvCooldownValue" android:layout_width="1dp" android:layout_height="1dp" android:visibility="gone" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" />
-            <com.google.android.material.switchmaterial.SwitchMaterial android:id="@+id/switchStreakNotifications" android:layout_width="1dp" android:layout_height="1dp" android:visibility="gone" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" />
-            <com.google.android.material.switchmaterial.SwitchMaterial android:id="@+id/switchWeeklySummary" android:layout_width="1dp" android:layout_height="1dp" android:visibility="gone" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNav"
-        android:layout_width="0dp"
-        android:layout_height="64dp"
-        android:background="#FFFFFF"
-        app:itemIconTint="#6200EE"
-        app:itemTextColor="#6200EE"
-        app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/menu_bottom_nav"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

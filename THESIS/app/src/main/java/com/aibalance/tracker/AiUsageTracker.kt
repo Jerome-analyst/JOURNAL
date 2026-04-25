@@ -7,6 +7,8 @@ import android.content.Context
 import android.os.Build
 import java.util.Calendar
 
+data class DayUsage(val dayName: String, val minutes: Long, val isToday: Boolean)
+
 data class AiAppUsage(
     val packageName: String,
     val appName: String,
@@ -143,6 +145,35 @@ class AiUsageTracker(private val context: Context) {
             set(Calendar.SECOND, 0)
             set(Calendar.MILLISECOND, 0)
         }.timeInMillis
+    }
+
+    /** Returns usage minutes per day for the current Mon–Sun week. */
+    fun getDailyUsageForWeek(): List<DayUsage> {
+        if (!hasUsagePermission()) {
+            return listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+                .map { DayUsage(it, 0L, false) }
+        }
+        val now = System.currentTimeMillis()
+        val todayDoy = Calendar.getInstance().get(Calendar.DAY_OF_YEAR)
+        val monday = Calendar.getInstance().apply {
+            firstDayOfWeek = Calendar.MONDAY
+            set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+            set(Calendar.HOUR_OF_DAY, 0); set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0); set(Calendar.MILLISECOND, 0)
+        }
+        val dayNames = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+        return buildList {
+            for (i in 0..6) {
+                val startTime = monday.timeInMillis
+                val dayOfYear = monday.get(Calendar.DAY_OF_YEAR)
+                monday.add(Calendar.DAY_OF_YEAR, 1)
+                if (startTime >= now) { add(DayUsage(dayNames[i], 0L, dayOfYear == todayDoy)); continue }
+                val endTime = monday.timeInMillis.coerceAtMost(now)
+                val minutesByPackage = queryMinutesByPackage(startTime, endTime)
+                val total = trackedApps.keys.sumOf { pkg -> minutesByPackage[pkg] ?: 0L }
+                add(DayUsage(dayNames[i], total, dayOfYear == todayDoy))
+            }
+        }
     }
 
     private fun getStartOfWeekMillis(): Long {

@@ -1,253 +1,206 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="@color/bg_dark">
 
-    <!-- Top Header -->
-    <ImageButton
-        android:id="@+id/btnBack"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/bg_pill_minutes"
-        android:backgroundTint="#F5F5F5"
-        android:src="@android:drawable/ic_menu_revert"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="#333333" />
-
-    <TextView
-        android:id="@+id/tvLevel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-black"
-        android:text="Level 1"
-        android:textColor="#333333"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@id/btnBack"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btnBack" />
-
+    <!-- ── Top bar: back · title · solved counter ── -->
     <LinearLayout
-        android:id="@+id/layoutCoins"
-        android:layout_width="wrap_content"
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/bg_pill_minutes"
-        android:backgroundTint="#F5F5F5"
-        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingHorizontal="12dp"
-        android:paddingVertical="6dp"
-        app:layout_constraintBottom_toBottomOf="@id/btnBack"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btnBack">
+        android:padding="12dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:src="@android:drawable/btn_star_big_on"
-            app:tint="#FBC02D" />
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            app:tint="@color/text_secondary" />
 
         <TextView
-            android:id="@+id/tvCoins"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Unscramble"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif-black" />
+
+        <TextView
+            android:id="@+id/tvGameSolved"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:fontFamily="sans-serif-bold"
-            android:text="360"
-            android:textColor="#333333"
-            android:textSize="13sp" />
+            android:layout_marginEnd="4dp"
+            tools:text="0 solved"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp"
+            android:fontFamily="sans-serif-medium" />
     </LinearLayout>
 
-    <!-- Clue Section -->
-    <TextView
-        android:id="@+id/tvClueTag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:alpha="0.6"
-        android:fontFamily="sans-serif-medium"
-        android:text="Sounds Like:"
-        android:textColor="#333333"
-        android:textSize="14sp"
-        android:letterSpacing="0.05"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnBack" />
-
-    <TextView
-        android:id="@+id/tvClueText"
+    <!-- ── Clue card ── -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvClue"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:text="Mow Land"
-        android:textColor="#333333"
-        android:textSize="32sp"
-        android:fontFamily="sans-serif-black"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="10dp"
+        app:cardBackgroundColor="@color/surface_card"
+        app:cardCornerRadius="20dp"
+        app:strokeColor="@color/border"
+        app:strokeWidth="1dp"
+        app:cardElevation="0dp"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvClueTag" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- Answer Slots -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:gravity="center">
+
+            <!-- Category / Attempts row -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:gravity="center">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CATEGORY" android:textColor="@color/text_secondary" android:textSize="10sp" android:textStyle="bold"/>
+                    <TextView android:id="@+id/tvCategoryValue" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:text="Mindset" android:textColor="@color/accent_purple" android:textSize="14sp" android:fontFamily="sans-serif-bold"/>
+                </LinearLayout>
+                <View android:layout_width="1dp" android:layout_height="28dp" android:background="@color/border"/>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:gravity="center">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ATTEMPTS" android:textColor="@color/text_secondary" android:textSize="10sp" android:textStyle="bold"/>
+                    <TextView android:id="@+id/tvAttemptsValue" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:text="0" android:textColor="@color/text_primary" android:textSize="14sp" android:fontFamily="sans-serif-bold"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/border" android:layout_marginVertical="12dp"/>
+
+            <TextView
+                android:id="@+id/tvClueTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Definition:"
+                android:textColor="@color/text_secondary"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvClueText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                tools:text="Pay close attention"
+                android:textColor="@color/text_primary"
+                android:textSize="19sp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- ── Answer slots — vertically centered between clue and tiles ── -->
     <LinearLayout
-        android:id="@+id/layoutAnswerSlots"
+        android:id="@+id/slotContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/cvClue"
+        app:layout_constraintBottom_toTopOf="@id/tileContainer"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvClueText">
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/tvSlot1"
-            android:layout_width="54dp"
-            android:layout_height="54dp"
-            android:layout_margin="4dp"
-            android:background="@drawable/bg_input_box"
-            android:backgroundTint="#F5F5F5"
-            android:gravity="center"
-            android:textColor="#333333"
-            android:textSize="22sp"
-            android:fontFamily="sans-serif-black" />
-
-        <TextView
-            android:id="@+id/tvSlot2"
-            android:layout_width="54dp"
-            android:layout_height="54dp"
-            android:layout_margin="4dp"
-            android:background="@drawable/bg_input_box"
-            android:backgroundTint="#F5F5F5"
-            android:gravity="center"
-            android:textColor="#333333"
-            android:textSize="22sp"
-            android:fontFamily="sans-serif-black" />
-
-        <TextView
-            android:id="@+id/tvSlot3"
-            android:layout_width="54dp"
-            android:layout_height="54dp"
-            android:layout_margin="4dp"
-            android:background="@drawable/bg_input_box"
-            android:backgroundTint="#F5F5F5"
-            android:gravity="center"
-            android:textColor="#333333"
-            android:textSize="22sp"
-            android:fontFamily="sans-serif-black" />
-
-        <TextView
-            android:id="@+id/tvSlot4"
-            android:layout_width="54dp"
-            android:layout_height="54dp"
-            android:layout_margin="4dp"
-            android:background="@drawable/bg_input_box"
-            android:backgroundTint="#F5F5F5"
-            android:gravity="center"
-            android:textColor="#333333"
-            android:textSize="22sp"
-            android:fontFamily="sans-serif-black" />
-
-        <TextView
-            android:id="@+id/tvSlot5"
-            android:layout_width="54dp"
-            android:layout_height="54dp"
-            android:layout_margin="4dp"
-            android:background="@drawable/bg_input_box"
-            android:backgroundTint="#F5F5F5"
-            android:gravity="center"
-            android:textColor="#333333"
-            android:textSize="22sp"
-            android:fontFamily="sans-serif-black" />
+        <TextView android:id="@+id/tvSlot1" style="@style/SlotStyle"/>
+        <TextView android:id="@+id/tvSlot2" style="@style/SlotStyle"/>
+        <TextView android:id="@+id/tvSlot3" style="@style/SlotStyle"/>
+        <TextView android:id="@+id/tvSlot4" style="@style/SlotStyle"/>
+        <TextView android:id="@+id/tvSlot5" style="@style/SlotStyle"/>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvAttemptsValue"
+    <!-- ── Scrambled letter tiles ── -->
+    <LinearLayout
+        android:id="@+id/tileContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="0"
-        android:textColor="#94A3B8"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@id/btnBackspace"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutAnswerSlots" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- Keyboard Section -->
-    <LinearLayout
-        android:id="@+id/layoutKeyboard"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:orientation="vertical"
-        android:padding="6dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <Button style="@style/GameKeyStyle" android:text="Q" />
-            <Button style="@style/GameKeyStyle" android:text="W" />
-            <Button style="@style/GameKeyStyle" android:text="E" />
-            <Button style="@style/GameKeyStyle" android:text="R" />
-            <Button style="@style/GameKeyStyle" android:text="T" />
-            <Button style="@style/GameKeyStyle" android:text="Y" />
-            <Button style="@style/GameKeyStyle" android:text="U" />
-            <Button style="@style/GameKeyStyle" android:text="I" />
-            <Button style="@style/GameKeyStyle" android:text="O" />
-            <Button style="@style/GameKeyStyle" android:text="P" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <Button style="@style/GameKeyStyle" android:text="A" />
-            <Button style="@style/GameKeyStyle" android:text="S" />
-            <Button style="@style/GameKeyStyle" android:text="D" />
-            <Button style="@style/GameKeyStyle" android:text="F" />
-            <Button style="@style/GameKeyStyle" android:text="G" />
-            <Button style="@style/GameKeyStyle" android:text="H" />
-            <Button style="@style/GameKeyStyle" android:text="J" />
-            <Button style="@style/GameKeyStyle" android:text="K" />
-            <Button style="@style/GameKeyStyle" android:text="L" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <Button style="@style/GameKeyStyle" android:text="Z" />
-            <Button style="@style/GameKeyStyle" android:text="X" />
-            <Button style="@style/GameKeyStyle" android:text="C" />
-            <Button style="@style/GameKeyStyle" android:text="V" />
-            <Button style="@style/GameKeyStyle" android:text="B" />
-            <Button style="@style/GameKeyStyle" android:text="N" />
-            <Button style="@style/GameKeyStyle" android:text="M" />
-            <Button
-                android:id="@+id/btnBackspace"
-                style="@style/GameKeyStyle"
-                android:layout_width="0dp"
-                android:layout_weight="1.5"
-                android:backgroundTint="#1E293B"
-                android:text="←"
-                app:rippleColor="#6366F1" />
-        </LinearLayout>
+        <TextView android:id="@+id/tile1" style="@style/TileStyle" tools:text="A"/>
+        <TextView android:id="@+id/tile2" style="@style/TileStyle" tools:text="L"/>
+        <TextView android:id="@+id/tile3" style="@style/TileStyle" tools:text="E"/>
+        <TextView android:id="@+id/tile4" style="@style/TileStyle" tools:text="R"/>
+        <TextView android:id="@+id/tile5" style="@style/TileStyle" tools:text="T"/>
     </LinearLayout>
 
-    <!-- Hidden but required -->
-    <TextView android:id="@+id/tvCategoryValue" android:layout_width="1dp" android:layout_height="1dp" android:visibility="gone" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" />
+    <!-- ── Clear last letter button ── -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBackspace"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="48dp"
+        android:layout_marginBottom="28dp"
+        android:text="⌫  Clear Last"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:textColor="@color/text_secondary"
+        app:backgroundTint="@color/border"
+        app:cornerRadius="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- ── Reward banner — slides up from below on correct answer ── -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvReward"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="110dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="#152B1E"
+        app:cardCornerRadius="18dp"
+        app:strokeColor="@color/accent_green"
+        app:strokeWidth="1dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✓  Correct!"
+                android:textColor="@color/accent_green"
+                android:textSize="17sp"
+                android:fontFamily="sans-serif-black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="+3 minutes earned"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

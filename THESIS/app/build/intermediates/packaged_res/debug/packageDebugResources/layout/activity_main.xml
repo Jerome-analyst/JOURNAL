@@ -1,249 +1,417 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    tools:context=".MainActivity">
+    android:background="@color/bg_dark">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/scrollMain"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toTopOf="@id/bottomNav"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+    <!-- ── Top toolbar ── -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"
+        android:gravity="center_vertical"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="20dp">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvGreeting"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:text="Dashboard"
-                android:textColor="#333333"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toStartOf="@id/btnSettings"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSettings"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Settings"
-                android:textAllCaps="false"
-                android:textColor="#818CF8"
-                app:layout_constraintBottom_toBottomOf="@id/tvGreeting"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvGreeting" />
+                android:text="Good morning!"
+                android:textColor="@color/text_primary"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-medium" />
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardSummary"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:cardBackgroundColor="#F5F5F5"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvGreeting"
-                app:strokeWidth="0dp">
+                android:layout_marginTop="2dp"
+                android:text="Friday, January 1"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp" />
+        </LinearLayout>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+        <!-- Streak badge -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            app:cardBackgroundColor="#2A1F6B"
+            app:cardCornerRadius="20dp"
+            app:strokeColor="@color/accent_purple"
+            app:strokeWidth="1dp">
+
+            <TextView
+                android:id="@+id/tvStreakBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="6dp"
+                android:text="0 day streak"
+                android:textColor="@color/accent_purple"
+                android:textSize="12sp"
+                android:fontFamily="sans-serif-medium" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Settings icon -->
+        <ImageButton
+            android:id="@+id/btnSettings"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_settings"
+            app:tint="@color/text_secondary" />
+    </LinearLayout>
+
+    <!-- ── Scrollable content ── -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="false"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="24dp">
+
+            <!-- ── Main usage card ── -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvProgress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:cardBackgroundColor="@color/surface_card"
+                app:cardCornerRadius="20dp"
+                app:strokeColor="@color/border"
+                app:strokeWidth="1dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:padding="24dp">
 
-                    <TextView
-                        android:id="@+id/tvTodayLabel"
+                    <!-- Usage number row -->
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:alpha="0.6"
-                        android:text="AI USAGE TODAY"
-                        android:textColor="#333333"
-                        android:textSize="12sp"
-                        android:letterSpacing="0.1"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        android:gravity="bottom">
+
+                        <TextView
+                            android:id="@+id/tvTodayUsage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/text_primary"
+                            android:textSize="56sp"
+                            android:fontFamily="sans-serif-black" />
+
+                        <TextView
+                            android:id="@+id/tvLimitSuffix"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginBottom="12dp"
+                            android:text="/ 60 min"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="16sp" />
+                    </LinearLayout>
 
                     <TextView
-                        android:id="@+id/tvTodayUsage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="sans-serif-black"
-                        android:text="0 min"
-                        android:textColor="#333333"
-                        android:textSize="42sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvTodayLabel"
-                        tools:text="41 min" />
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="2dp"
+                        android:text="AI Usage Today"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13sp" />
 
+                    <!-- Progress bar -->
                     <ProgressBar
                         android:id="@+id/progressDaily"
                         style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="0dp"
-                        android:layout_height="8dp"
-                        android:layout_marginTop="24dp"
-                        android:max="60"
-                        android:progress="0"
-                        android:progressDrawable="@drawable/custom_progress_bar"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvTodayUsage" />
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginTop="20dp"
+                        android:max="100"
+                        android:progressDrawable="@drawable/custom_progress_bar" />
 
                     <TextView
                         android:id="@+id/tvRemainingMinutes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="8dp"
                         android:text="60 min remaining"
-                        android:textColor="#818CF8"
-                        android:textSize="13sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/progressDaily" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13sp" />
+
+                    <!-- Water glasses -->
+                    <LinearLayout
+                        android:id="@+id/llWaterGlasses"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="24dp"
+                        android:orientation="horizontal">
+
+                        <FrameLayout android:id="@+id/glass1" android:layout_width="40dp" android:layout_height="52dp" android:layout_margin="4dp" android:background="@color/border">
+                            <View android:id="@+id/viewGlassFill1" android:layout_width="match_parent" android:layout_height="0dp" android:layout_gravity="bottom" android:background="@color/accent_blue"/>
+                        </FrameLayout>
+                        <FrameLayout android:id="@+id/glass2" android:layout_width="40dp" android:layout_height="52dp" android:layout_margin="4dp" android:background="@color/border">
+                            <View android:id="@+id/viewGlassFill2" android:layout_width="match_parent" android:layout_height="0dp" android:layout_gravity="bottom" android:background="@color/accent_blue"/>
+                        </FrameLayout>
+                        <FrameLayout android:id="@+id/glass3" android:layout_width="40dp" android:layout_height="52dp" android:layout_margin="4dp" android:background="@color/border">
+                            <View android:id="@+id/viewGlassFill3" android:layout_width="match_parent" android:layout_height="0dp" android:layout_gravity="bottom" android:background="@color/accent_blue"/>
+                        </FrameLayout>
+                        <FrameLayout android:id="@+id/glass4" android:layout_width="40dp" android:layout_height="52dp" android:layout_margin="4dp" android:background="@color/border">
+                            <View android:id="@+id/viewGlassFill4" android:layout_width="match_parent" android:layout_height="0dp" android:layout_gravity="bottom" android:background="@color/accent_blue"/>
+                        </FrameLayout>
+                        <FrameLayout android:id="@+id/glass5" android:layout_width="40dp" android:layout_height="52dp" android:layout_margin="4dp" android:background="@color/border">
+                            <View android:id="@+id/viewGlassFill5" android:layout_width="match_parent" android:layout_height="0dp" android:layout_gravity="bottom" android:background="@color/accent_blue"/>
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvWaterPercent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="6dp"
+                        android:text="0%"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp" />
+                </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Small Stats -->
+            <!-- ── Stats chips row ── -->
             <LinearLayout
-                android:id="@+id/layoutSmallStats"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardSummary">
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="#F5F5F5"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp"
-                        android:gravity="center">
-                        <TextView
-                            android:id="@+id/tvStreakDays"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-bold"
-                            android:text="0"
-                            android:textColor="#333333"
-                            android:textSize="18sp" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:alpha="0.6"
-                            android:text="STREAK"
-                            android:textColor="#333333"
-                            android:textSize="10sp" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="#F5F5F5"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp"
-                        android:gravity="center">
-                        <TextView
-                            android:id="@+id/tvWaterPercent"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-bold"
-                            android:text="0%"
-                            android:textColor="#2196F3"
-                            android:textSize="18sp" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:alpha="0.6"
-                            android:text="HYDRATION"
-                            android:textColor="#333333"
-                            android:textSize="10sp" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-            </LinearLayout>
-
-            <!-- List Hidden but Functional (Simplified) -->
-            <TextView
-                android:id="@+id/tvListTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="AI Activity"
-                android:textColor="#333333"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layoutSmallStats" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvAiApps"
-                android:layout_width="0dp"
+                android:id="@+id/layoutStats"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:nestedScrollingEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvListTitle"
-                tools:itemCount="3"
-                tools:listitem="@layout/item_ai_usage" />
+                android:orientation="horizontal">
 
-            <!-- Hidden elements still needed by code -->
-            <TextView android:id="@+id/tvWordsSolved" android:layout_width="1dp" android:layout_height="1dp" android:visibility="gone" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" />
-            <TextView android:id="@+id/tvBonusMinutes" android:layout_width="1dp" android:layout_height="1dp" android:visibility="gone" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" />
-            <TextView android:id="@+id/tvPermissionHint" android:layout_width="1dp" android:layout_height="1dp" android:visibility="gone" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" />
-            <Button android:id="@+id/btnGrantAccess" android:layout_width="1dp" android:layout_height="1dp" android:visibility="gone" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" />
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    app:cardBackgroundColor="@color/surface_card"
+                    app:cardCornerRadius="16dp"
+                    app:strokeColor="@color/border"
+                    app:strokeWidth="1dp"
+                    app:cardElevation="0dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:padding="14dp">
+                        <TextView android:id="@+id/tvStreakDays" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="@color/accent_purple" android:textSize="22sp" android:fontFamily="sans-serif-black"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🔥 streak" android:textColor="@color/text_secondary" android:textSize="11sp" android:layout_marginTop="2dp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-            <LinearLayout android:id="@+id/layoutGlasses" android:layout_width="wrap_content" android:layout_height="wrap_content" android:visibility="gone" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent">
-                <FrameLayout android:id="@+id/glass1" android:layout_width="1dp" android:layout_height="1dp"><View android:id="@+id/viewGlassFill1" android:layout_width="1dp" android:layout_height="1dp" /></FrameLayout>
-                <FrameLayout android:id="@+id/glass2" android:layout_width="1dp" android:layout_height="1dp"><View android:id="@+id/viewGlassFill2" android:layout_width="1dp" android:layout_height="1dp" /></FrameLayout>
-                <FrameLayout android:id="@+id/glass3" android:layout_width="1dp" android:layout_height="1dp"><View android:id="@+id/viewGlassFill3" android:layout_width="1dp" android:layout_height="1dp" /></FrameLayout>
-                <FrameLayout android:id="@+id/glass4" android:layout_width="1dp" android:layout_height="1dp"><View android:id="@+id/viewGlassFill4" android:layout_width="1dp" android:layout_height="1dp" /></FrameLayout>
-                <FrameLayout android:id="@+id/glass5" android:layout_width="1dp" android:layout_height="1dp"><View android:id="@+id/viewGlassFill5" android:layout_width="1dp" android:layout_height="1dp" /></FrameLayout>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="3dp"
+                    app:cardBackgroundColor="@color/surface_card"
+                    app:cardCornerRadius="16dp"
+                    app:strokeColor="@color/border"
+                    app:strokeWidth="1dp"
+                    app:cardElevation="0dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:padding="14dp">
+                        <TextView android:id="@+id/tvWordsSolved" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="@color/accent_blue" android:textSize="22sp" android:fontFamily="sans-serif-black"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="words won" android:textColor="@color/text_secondary" android:textSize="11sp" android:layout_marginTop="2dp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    app:cardBackgroundColor="@color/surface_card"
+                    app:cardCornerRadius="16dp"
+                    app:strokeColor="@color/border"
+                    app:strokeWidth="1dp"
+                    app:cardElevation="0dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:padding="14dp">
+                        <TextView android:id="@+id/tvBonusMinutes" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="+0" android:textColor="@color/accent_green" android:textSize="22sp" android:fontFamily="sans-serif-black"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="bonus mins" android:textColor="@color/text_secondary" android:textSize="11sp" android:layout_marginTop="2dp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+            <!-- ── Per-app breakdown card ── -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvApps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:cardBackgroundColor="@color/surface_card"
+                app:cardCornerRadius="20dp"
+                app:strokeColor="@color/border"
+                app:strokeWidth="1dp"
+                app:cardElevation="0dp">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="16dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Top Apps Today"
+                            android:textColor="@color/text_primary"
+                            android:textSize="15sp"
+                            android:fontFamily="sans-serif-medium" />
+
+                        <TextView
+                            android:id="@+id/tvViewAllApps"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="View all"
+                            android:textColor="@color/accent_purple"
+                            android:textSize="13sp"
+                            android:paddingStart="8dp"
+                            android:paddingVertical="4dp" />
+                    </LinearLayout>
+
+                    <!-- ChatGPT row -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="16dp">
+                        <TextView android:layout_width="36dp" android:layout_height="36dp" android:gravity="center" android:text="G" android:textColor="#FFFFFF" android:textSize="16sp" android:fontFamily="sans-serif-bold" android:background="@color/app_chatgpt"/>
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="12dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ChatGPT" android:textColor="@color/text_primary" android:textSize="13sp" android:fontFamily="sans-serif-medium"/>
+                            <ProgressBar android:id="@+id/pbChatGPT" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginTop="4dp" android:max="100" android:progressDrawable="@drawable/custom_progress_bar"/>
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="end" android:layout_marginStart="10dp">
+                            <TextView android:id="@+id/tvChatGPTPct" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0%" android:textColor="@color/accent_green" android:textSize="13sp" android:fontFamily="sans-serif-bold"/>
+                            <TextView android:id="@+id/tvChatGPTMins" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 min" android:textColor="@color/text_secondary" android:textSize="11sp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Claude row -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="16dp">
+                        <TextView android:layout_width="36dp" android:layout_height="36dp" android:gravity="center" android:text="C" android:textColor="#FFFFFF" android:textSize="16sp" android:fontFamily="sans-serif-bold" android:background="@color/app_claude"/>
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="12dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Claude" android:textColor="@color/text_primary" android:textSize="13sp" android:fontFamily="sans-serif-medium"/>
+                            <ProgressBar android:id="@+id/pbClaude" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginTop="4dp" android:max="100" android:progressDrawable="@drawable/custom_progress_bar"/>
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="end" android:layout_marginStart="10dp">
+                            <TextView android:id="@+id/tvClaudePct" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0%" android:textColor="@color/accent_green" android:textSize="13sp" android:fontFamily="sans-serif-bold"/>
+                            <TextView android:id="@+id/tvClaudeMins" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 min" android:textColor="@color/text_secondary" android:textSize="11sp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Gemini row -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="16dp">
+                        <TextView android:layout_width="36dp" android:layout_height="36dp" android:gravity="center" android:text="G" android:textColor="#FFFFFF" android:textSize="16sp" android:fontFamily="sans-serif-bold" android:background="@color/app_gemini"/>
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="12dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Gemini" android:textColor="@color/text_primary" android:textSize="13sp" android:fontFamily="sans-serif-medium"/>
+                            <ProgressBar android:id="@+id/pbGemini" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginTop="4dp" android:max="100" android:progressDrawable="@drawable/custom_progress_bar"/>
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="end" android:layout_marginStart="10dp">
+                            <TextView android:id="@+id/tvGeminiPct" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0%" android:textColor="@color/accent_green" android:textSize="13sp" android:fontFamily="sans-serif-bold"/>
+                            <TextView android:id="@+id/tvGeminiMins" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 min" android:textColor="@color/text_secondary" android:textSize="11sp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Perplexity row (last visible — no bottom margin) -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                        <TextView android:layout_width="36dp" android:layout_height="36dp" android:gravity="center" android:text="P" android:textColor="#FFFFFF" android:textSize="16sp" android:fontFamily="sans-serif-bold" android:background="@color/app_perplexity"/>
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="12dp">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Perplexity" android:textColor="@color/text_primary" android:textSize="13sp" android:fontFamily="sans-serif-medium"/>
+                            <ProgressBar android:id="@+id/pbPerplexity" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginTop="4dp" android:max="100" android:progressDrawable="@drawable/custom_progress_bar"/>
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="end" android:layout_marginStart="10dp">
+                            <TextView android:id="@+id/tvPerplexityPct" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0%" android:textColor="@color/accent_green" android:textSize="13sp" android:fontFamily="sans-serif-bold"/>
+                            <TextView android:id="@+id/tvPerplexityMins" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 min" android:textColor="@color/text_secondary" android:textSize="11sp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ── Permission banner (hidden when access granted) ── -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvPermission"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="#1A1A30"
+                app:cardCornerRadius="16dp"
+                app:strokeColor="@color/accent_red"
+                app:strokeWidth="1dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tvPermissionHint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Usage access is required to track AI app usage."
+                        android:textColor="@color/text_primary"
+                        android:textSize="13sp" />
+
+                    <Button
+                        android:id="@+id/btnGrantAccess"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Grant Access"
+                        android:textAllCaps="false"
+                        android:backgroundTint="@color/accent_purple"
+                        android:textColor="@color/text_primary"
+                        android:textSize="13sp"
+                        app:cornerRadius="10dp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- ── Bottom navigation ── -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
-        android:layout_width="0dp"
-        android:layout_height="64dp"
-        android:background="#FFFFFF"
-        app:itemIconTint="#6200EE"
-        app:itemTextColor="#6200EE"
-        app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/menu_bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/surface_card"
+        app:itemIconTint="@color/nav_item_colors"
+        app:itemTextColor="@color/nav_item_colors"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:menu="@menu/menu_bottom_nav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

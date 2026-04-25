@@ -1,78 +1,157 @@
-﻿<?xml version=""1.0"" encoding=""utf-8""?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=""http://schemas.android.com/apk/res/android""
-    xmlns:app=""http://schemas.android.com/apk/res-auto""
-    android:layout_width=""match_parent""
-    android:layout_height=""match_parent""
-    android:background=""#F5F7FA"">
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_dark">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width=""0dp""
-        android:layout_height=""wrap_content""
-        android:layout_marginHorizontal=""24dp""
-        app:cardCornerRadius=""24dp""
-        app:cardElevation=""8dp""
-        app:layout_constraintBottom_toBottomOf=""parent""
-        app:layout_constraintEnd_toEndOf=""parent""
-        app:layout_constraintStart_toStartOf=""parent""
-        app:layout_constraintTop_toTopOf=""parent"">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width=""match_parent""
-            android:layout_height=""wrap_content""
-            android:padding=""32dp"">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="32dp"
+            android:paddingBottom="24dp">
 
-            <TextView
-                android:id=""@+id/tvCooldownMsg""
-                android:layout_width=""wrap_content""
-                android:layout_height=""wrap_content""
-                android:gravity=""center""
-                android:text=""Limit Reached""
-                android:textColor=""#2D3748""
-                android:textSize=""28sp""
-                android:fontFamily=""sans-serif-black""
-                app:layout_constraintEnd_toEndOf=""parent""
-                app:layout_constraintStart_toStartOf=""parent""
-                app:layout_constraintTop_toTopOf=""parent"" />
+            <!-- ── Timer card ── -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvTimer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/surface_card"
+                app:cardCornerRadius="24dp"
+                app:strokeColor="@color/border"
+                app:strokeWidth="1dp"
+                app:cardElevation="0dp">
 
-            <TextView
-                android:id=""@+id/tvTimer""
-                android:layout_width=""wrap_content""
-                android:layout_height=""wrap_content""
-                android:layout_marginTop=""24dp""
-                android:fontFamily=""sans-serif-medium""
-                android:text=""05:00""
-                android:textColor=""#E53E3E""
-                android:textSize=""64sp""
-                app:layout_constraintEnd_toEndOf=""parent""
-                app:layout_constraintStart_toStartOf=""parent""
-                app:layout_constraintTop_toBottomOf=""@id/tvCooldownMsg"" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="32dp"
+                    android:gravity="center">
 
-            <TextView
-                android:layout_width=""0dp""
-                android:layout_height=""wrap_content""
-                android:layout_marginTop=""16dp""
-                android:gravity=""center""
-                android:text=""Please take a break. Time to disconnect for a moment.""
-                android:textColor=""#718096""
-                android:textSize=""16sp""
-                app:layout_constraintEnd_toEndOf=""parent""
-                app:layout_constraintStart_toStartOf=""parent""
-                app:layout_constraintTop_toBottomOf=""@id/tvTimer"" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Limit Reached"
+                        android:textColor="@color/text_primary"
+                        android:textSize="22sp"
+                        android:fontFamily="sans-serif-black" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id=""@+id/btnPlayGame""
-                style=""@style/Widget.MaterialComponents.Button.OutlinedButton""
-                android:layout_width=""0dp""
-                android:layout_height=""56dp""
-                android:layout_marginTop=""48dp""
-                android:text=""Earn bonus time in Mini-Game""
-                android:textAllCaps=""false""
-                android:textColor=""#6200EE""
-                app:cornerRadius=""14dp""
-                app:layout_constraintEnd_toEndOf=""parent""
-                app:layout_constraintStart_toStartOf=""parent""
-                app:layout_constraintTop_toBottomOf=""@id/tvTimer"" />
+                    <!-- Large countdown -->
+                    <TextView
+                        android:id="@+id/tvTimer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="10:00"
+                        android:textColor="@color/accent_red"
+                        android:textSize="72sp"
+                        android:fontFamily="sans-serif-black"
+                        android:letterSpacing="0.05" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+                    <TextView
+                        android:id="@+id/tvTimerLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:gravity="center"
+                        android:text="Take a break. Disconnect for a moment."
+                        android:textColor="@color/text_secondary"
+                        android:textSize="14sp" />
+
+                    <!-- Play game button -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnPlayGame"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="28dp"
+                        android:text="Play Mini-Game — earn +3 min"
+                        android:textAllCaps="false"
+                        android:textSize="14sp"
+                        app:backgroundTint="@color/accent_purple"
+                        app:cornerRadius="14dp" />
+
+                    <!-- Return button (shown when timer ends) -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnReturnDashboard"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="12dp"
+                        android:text="Return to Dashboard"
+                        android:textAllCaps="false"
+                        android:textSize="14sp"
+                        android:visibility="gone"
+                        app:backgroundTint="@color/accent_green"
+                        app:cornerRadius="14dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ── Stats card ── -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvStats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="@color/surface_card"
+                app:cardCornerRadius="20dp"
+                app:strokeColor="@color/border"
+                app:strokeWidth="1dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <!-- Today's usage -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="6dp">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Today's Usage" android:textColor="@color/text_primary" android:textSize="13sp" android:fontFamily="sans-serif-medium"/>
+                        <TextView android:id="@+id/tvDailyUsage" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 / 60 min" android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                    </LinearLayout>
+                    <ProgressBar
+                        android:id="@+id/progressDailyCooldown"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:layout_marginBottom="20dp"
+                        android:progressDrawable="@drawable/custom_progress_bar" />
+
+                    <!-- Weekly usage -->
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="6dp">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="This Week" android:textColor="@color/text_primary" android:textSize="13sp" android:fontFamily="sans-serif-medium"/>
+                        <TextView android:id="@+id/tvWeeklyUsage" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 min" android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                    </LinearLayout>
+                    <ProgressBar
+                        android:id="@+id/progressWeekly"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:progressDrawable="@drawable/custom_progress_bar" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Bottom nav -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/surface_card"
+        app:itemIconTint="@color/nav_item_colors"
+        app:itemTextColor="@color/nav_item_colors"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/menu_bottom_nav" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.SeekBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.auth.FirebaseAuth
 
@@ -24,6 +24,9 @@ class SettingsActivity : AppCompatActivity() {
         const val KEY_WORDS_SOLVED = "words_solved"
         const val KEY_STREAK_DAYS = "streak_days"
         const val KEY_LAST_COOLDOWN_DAY = "last_cooldown_day"
+        // Streak tracking keys
+        const val KEY_LAST_STREAK_CHECK_DAY = "last_streak_check_day"
+        const val KEY_STREAK_BROKEN_TODAY = "streak_broken_today"
     }
 
     private val prefs by lazy { getSharedPreferences(PREFS_NAME, MODE_PRIVATE) }
@@ -43,7 +46,9 @@ class SettingsActivity : AppCompatActivity() {
         val switchWeekly = findViewById<SwitchMaterial>(R.id.switchWeeklySummary)
         val btnSave = findViewById<Button>(R.id.btnSaveSettings)
         val btnLogout = findViewById<Button>(R.id.btnLogout)
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
+
+        // Back button — settings no longer has a bottom nav
+        findViewById<android.widget.ImageButton>(R.id.btnBackSettings).setOnClickListener { finish() }
 
         val dailyLimit = prefs.getInt(KEY_DAILY_LIMIT_MINUTES, 60)
         val cooldown = prefs.getInt(KEY_COOLDOWN_DURATION_MINUTES, 10)
@@ -61,25 +66,24 @@ class SettingsActivity : AppCompatActivity() {
 
         seekDaily.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                val value = progress + 10
-                tvDailyValue.text = getString(R.string.minutes_value, value.toLong())
+                tvDailyValue.text = getString(R.string.minutes_value, (progress + 10).toLong())
             }
-
             override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
             override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
         })
 
         seekCooldown.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                val value = progress + 5
-                tvCooldownValue.text = getString(R.string.minutes_value, value.toLong())
+                tvCooldownValue.text = getString(R.string.minutes_value, (progress + 5).toLong())
             }
-
             override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
             override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
         })
 
         btnSave.setOnClickListener {
+            val anyNotifEnabled = switchGentle.isChecked || switchLimit.isChecked
+                    || switchStreak.isChecked || switchWeekly.isChecked
+
             prefs.edit()
                 .putInt(KEY_DAILY_LIMIT_MINUTES, seekDaily.progress + 10)
                 .putInt(KEY_COOLDOWN_DURATION_MINUTES, seekCooldown.progress + 5)
@@ -88,31 +92,24 @@ class SettingsActivity : AppCompatActivity() {
                 .putBoolean(KEY_STREAK_NOTIFICATIONS, switchStreak.isChecked)
                 .putBoolean(KEY_WEEKLY_SUMMARY, switchWeekly.isChecked)
                 .apply()
+
+            // Schedule or cancel the background worker based on notification prefs
+            if (anyNotifEnabled) {
+                UsageCheckWorker.schedule(this)
+            } else {
+                UsageCheckWorker.cancel(this)
+            }
+
+            Toast.makeText(this, "Settings saved!", Toast.LENGTH_SHORT).show()
             finish()
         }
 
         btnLogout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
-            val intent = Intent(this, LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            finish()
+            startActivity(Intent(this, LoginActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            })
         }
 
-        bottomNav.selectedItemId = R.id.nav_settings
-        bottomNav.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_dashboard -> {
-                    startActivity(Intent(this, MainActivity::class.java))
-                    true
-                }
-                R.id.nav_cooldown -> {
-                    startActivity(Intent(this, CooldownActivity::class.java))
-                    true
-                }
-                R.id.nav_settings -> true
-                else -> false
-            }
-        }
     }
 }

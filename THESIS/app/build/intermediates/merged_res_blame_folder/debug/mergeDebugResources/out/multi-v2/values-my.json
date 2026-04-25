@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.aibalance.tracker.app-mergeDebugResources-37:/values-my/values-my.xml",
+            "outputFile": "com.aibalance.tracker.app-mergeDebugResources-45:/values-my/values-my.xml",
             "map": [
                 {
                     "source": "C:\\Users\\jerom\\.gradle\\caches\\9.0.0\\transforms\\465e95b1b20d8a5cc983d24747b1f9e9\\transformed\\browser-1.4.0\\res\\values-my\\values-my.xml",

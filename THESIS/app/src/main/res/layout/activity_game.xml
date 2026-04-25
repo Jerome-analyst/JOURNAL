@@ -1,117 +1,206 @@
-﻿<?xml version=""1.0"" encoding=""utf-8""?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=""http://schemas.android.com/apk/res/android""
-    xmlns:app=""http://schemas.android.com/apk/res-auto""
-    android:layout_width=""match_parent""
-    android:layout_height=""match_parent""
-    android:background=""#F5F7FA"">
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_dark">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width=""0dp""
-        android:layout_height=""wrap_content""
-        android:layout_marginHorizontal=""24dp""
-        app:cardCornerRadius=""24dp""
-        app:cardElevation=""8dp""
-        app:layout_constraintBottom_toBottomOf=""parent""
-        app:layout_constraintEnd_toEndOf=""parent""
-        app:layout_constraintStart_toStartOf=""parent""
-        app:layout_constraintTop_toTopOf=""parent"">
+    <!-- ── Top bar: back · title · solved counter ── -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width=""match_parent""
-            android:layout_height=""wrap_content""
-            android:padding=""32dp"">
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            app:tint="@color/text_secondary" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Unscramble"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif-black" />
+
+        <TextView
+            android:id="@+id/tvGameSolved"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            tools:text="0 solved"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp"
+            android:fontFamily="sans-serif-medium" />
+    </LinearLayout>
+
+    <!-- ── Clue card ── -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvClue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="10dp"
+        app:cardBackgroundColor="@color/surface_card"
+        app:cardCornerRadius="20dp"
+        app:strokeColor="@color/border"
+        app:strokeWidth="1dp"
+        app:cardElevation="0dp"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:gravity="center">
+
+            <!-- Category / Attempts row -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:gravity="center">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CATEGORY" android:textColor="@color/text_secondary" android:textSize="10sp" android:textStyle="bold"/>
+                    <TextView android:id="@+id/tvCategoryValue" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:text="Mindset" android:textColor="@color/accent_purple" android:textSize="14sp" android:fontFamily="sans-serif-bold"/>
+                </LinearLayout>
+                <View android:layout_width="1dp" android:layout_height="28dp" android:background="@color/border"/>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:gravity="center">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ATTEMPTS" android:textColor="@color/text_secondary" android:textSize="10sp" android:textStyle="bold"/>
+                    <TextView android:id="@+id/tvAttemptsValue" android:layout_width="wrap_content" android:layout_height="wrap_content" tools:text="0" android:textColor="@color/text_primary" android:textSize="14sp" android:fontFamily="sans-serif-bold"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/border" android:layout_marginVertical="12dp"/>
 
             <TextView
-                android:id=""@+id/tvGameTitle""
-                android:layout_width=""0dp""
-                android:layout_height=""wrap_content""
-                android:gravity=""center""
-                android:text=""Unscramble to Win Details""
-                android:textColor=""#2D3748""
-                android:textSize=""24sp""
-                android:fontFamily=""sans-serif-black""
-                app:layout_constraintEnd_toEndOf=""parent""
-                app:layout_constraintStart_toStartOf=""parent""
-                app:layout_constraintTop_toTopOf=""parent"" />
+                android:id="@+id/tvClueTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Definition:"
+                android:textColor="@color/text_secondary"
+                android:textSize="11sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:id=""@+id/tvScrambledWord""
-                android:layout_width=""wrap_content""
-                android:layout_height=""wrap_content""
-                android:layout_marginTop=""32dp""
-                android:letterSpacing=""0.1""
-                android:text=""O R D W""
-                android:textColor=""#4A5568""
-                android:textSize=""40sp""
-                android:textStyle=""bold""
-                app:layout_constraintEnd_toEndOf=""parent""
-                app:layout_constraintStart_toStartOf=""parent""
-                app:layout_constraintTop_toBottomOf=""@id/tvGameTitle"" />
+                android:id="@+id/tvClueText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                tools:text="Pay close attention"
+                android:textColor="@color/text_primary"
+                android:textSize="19sp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id=""@+id/layoutGameInput""
-                style=""@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox""
-                android:layout_width=""0dp""
-                android:layout_height=""wrap_content""
-                android:layout_marginTop=""32dp""
-                app:boxCornerRadiusBottomEnd=""12dp""
-                app:boxCornerRadiusBottomStart=""12dp""
-                app:boxCornerRadiusTopEnd=""12dp""
-                app:boxCornerRadiusTopStart=""12dp""
-                app:layout_constraintEnd_toEndOf=""parent""
-                app:layout_constraintStart_toStartOf=""parent""
-                app:layout_constraintTop_toBottomOf=""@id/tvScrambledWord"">
+    <!-- ── Answer slots — vertically centered between clue and tiles ── -->
+    <LinearLayout
+        android:id="@+id/slotContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/cvClue"
+        app:layout_constraintBottom_toTopOf="@id/tileContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id=""@+id/etAnswer""
-                    android:layout_width=""match_parent""
-                    android:layout_height=""wrap_content""
-                    android:gravity=""center""
-                    android:hint=""Your Answer""
-                    android:inputType=""textCapCharacters"" />
-            </com.google.android.material.textfield.TextInputLayout>
+        <TextView android:id="@+id/tvSlot1" style="@style/SlotStyle"/>
+        <TextView android:id="@+id/tvSlot2" style="@style/SlotStyle"/>
+        <TextView android:id="@+id/tvSlot3" style="@style/SlotStyle"/>
+        <TextView android:id="@+id/tvSlot4" style="@style/SlotStyle"/>
+        <TextView android:id="@+id/tvSlot5" style="@style/SlotStyle"/>
+    </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id=""@+id/btnSubmit""
-                android:layout_width=""0dp""
-                android:layout_height=""56dp""
-                android:layout_marginTop=""24dp""
-                android:backgroundTint=""#38A169""
-                android:text=""Submit""
-                android:textAllCaps=""false""
-                android:textSize=""16sp""
-                app:cornerRadius=""14dp""
-                app:layout_constraintEnd_toEndOf=""parent""
-                app:layout_constraintStart_toStartOf=""parent""
-                app:layout_constraintTop_toBottomOf=""@id/layoutGameInput"" />
+    <!-- ── Scrambled letter tiles ── -->
+    <LinearLayout
+        android:id="@+id/tileContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@id/btnBackspace"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView android:id="@+id/tile1" style="@style/TileStyle" tools:text="A"/>
+        <TextView android:id="@+id/tile2" style="@style/TileStyle" tools:text="L"/>
+        <TextView android:id="@+id/tile3" style="@style/TileStyle" tools:text="E"/>
+        <TextView android:id="@+id/tile4" style="@style/TileStyle" tools:text="R"/>
+        <TextView android:id="@+id/tile5" style="@style/TileStyle" tools:text="T"/>
+    </LinearLayout>
+
+    <!-- ── Clear last letter button ── -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBackspace"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="48dp"
+        android:layout_marginBottom="28dp"
+        android:text="⌫  Clear Last"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:textColor="@color/text_secondary"
+        app:backgroundTint="@color/border"
+        app:cornerRadius="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- ── Reward banner — slides up from below on correct answer ── -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvReward"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="110dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="#152B1E"
+        app:cardCornerRadius="18dp"
+        app:strokeColor="@color/accent_green"
+        app:strokeWidth="1dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:gravity="center">
 
             <TextView
-                android:id=""@+id/tvGameFeedback""
-                android:layout_width=""0dp""
-                android:layout_height=""wrap_content""
-                android:layout_marginTop=""24dp""
-                android:gravity=""center""
-                android:text=""""
-                android:textColor=""#E53E3E""
-                android:textSize=""16sp""
-                android:textStyle=""bold""
-                app:layout_constraintEnd_toEndOf=""parent""
-                app:layout_constraintStart_toStartOf=""parent""
-                app:layout_constraintTop_toBottomOf=""@id/btnSubmit"" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✓  Correct!"
+                android:textColor="@color/accent_green"
+                android:textSize="17sp"
+                android:fontFamily="sans-serif-black" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id=""@+id/btnBack""
-                style=""@style/Widget.MaterialComponents.Button.TextButton""
-                android:layout_width=""0dp""
-                android:layout_height=""wrap_content""
-                android:layout_marginTop=""16dp""
-                android:text=""I give up""
-                android:textAllCaps=""false""
-                android:textColor=""#718096""
-                app:layout_constraintEnd_toEndOf=""parent""
-                app:layout_constraintStart_toStartOf=""parent""
-                app:layout_constraintTop_toBottomOf=""@id/tvGameFeedback"" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="+3 minutes earned"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
