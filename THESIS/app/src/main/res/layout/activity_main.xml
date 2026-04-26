@@ -38,32 +38,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Friday, January 1"
+                android:text="Sunday, April 26"
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp" />
-        </LinearLayout>
 
-        <!-- Streak badge -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            app:cardBackgroundColor="#2A1F6B"
-            app:cardCornerRadius="20dp"
-            app:strokeColor="@color/accent_purple"
-            app:strokeWidth="1dp">
-
+            <!-- Streak pill — inline below date -->
             <TextView
                 android:id="@+id/tvStreakBadge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/bg_streak_pill"
                 android:paddingHorizontal="12dp"
-                android:paddingVertical="6dp"
-                android:text="0 day streak"
-                android:textColor="@color/accent_purple"
-                android:textSize="12sp"
+                android:paddingVertical="4dp"
+                android:text="🔥 0 Day Streak"
+                android:textColor="#AFA9EC"
+                android:textSize="11sp"
                 android:fontFamily="sans-serif-medium" />
-        </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
 
         <!-- Settings icon -->
         <ImageButton
@@ -294,15 +286,31 @@
                             android:textSize="15sp"
                             android:fontFamily="sans-serif-medium" />
 
-                        <TextView
-                            android:id="@+id/tvViewAllApps"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="View all"
-                            android:textColor="@color/accent_purple"
-                            android:textSize="13sp"
-                            android:paddingStart="8dp"
-                            android:paddingVertical="4dp" />
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:id="@+id/tvViewAllApps"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="View all"
+                                android:textColor="@color/accent_purple"
+                                android:textSize="13sp"
+                                android:paddingStart="8dp"
+                                android:paddingVertical="4dp" />
+
+                            <TextView
+                                android:id="@+id/tvChevron"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="▾"
+                                android:textColor="@color/accent_purple"
+                                android:textSize="13sp"
+                                android:paddingEnd="4dp" />
+                        </LinearLayout>
                     </LinearLayout>
 
                     <!-- ChatGPT row -->
@@ -331,29 +339,52 @@
                         </LinearLayout>
                     </LinearLayout>
 
-                    <!-- Gemini row -->
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="16dp">
-                        <TextView android:layout_width="36dp" android:layout_height="36dp" android:gravity="center" android:text="G" android:textColor="#FFFFFF" android:textSize="16sp" android:fontFamily="sans-serif-bold" android:background="@color/app_gemini"/>
-                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="12dp">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Gemini" android:textColor="@color/text_primary" android:textSize="13sp" android:fontFamily="sans-serif-medium"/>
-                            <ProgressBar android:id="@+id/pbGemini" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginTop="4dp" android:max="100" android:progressDrawable="@drawable/custom_progress_bar"/>
-                        </LinearLayout>
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="end" android:layout_marginStart="10dp">
-                            <TextView android:id="@+id/tvGeminiPct" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0%" android:textColor="@color/accent_green" android:textSize="13sp" android:fontFamily="sans-serif-bold"/>
-                            <TextView android:id="@+id/tvGeminiMins" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 min" android:textColor="@color/text_secondary" android:textSize="11sp"/>
-                        </LinearLayout>
-                    </LinearLayout>
+                    <!-- Expandable: Gemini + Copilot + Perplexity (initially hidden) -->
+                    <LinearLayout
+                        android:id="@+id/llExpandableApps"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        android:clipChildren="true">
 
-                    <!-- Perplexity row (last visible — no bottom margin) -->
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
-                        <TextView android:layout_width="36dp" android:layout_height="36dp" android:gravity="center" android:text="P" android:textColor="#FFFFFF" android:textSize="16sp" android:fontFamily="sans-serif-bold" android:background="@color/app_perplexity"/>
-                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="12dp">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Perplexity" android:textColor="@color/text_primary" android:textSize="13sp" android:fontFamily="sans-serif-medium"/>
-                            <ProgressBar android:id="@+id/pbPerplexity" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginTop="4dp" android:max="100" android:progressDrawable="@drawable/custom_progress_bar"/>
+                        <!-- Gemini row -->
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="16dp">
+                            <TextView android:layout_width="36dp" android:layout_height="36dp" android:gravity="center" android:text="G" android:textColor="#FFFFFF" android:textSize="16sp" android:fontFamily="sans-serif-bold" android:background="@color/app_gemini"/>
+                            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="12dp">
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Gemini" android:textColor="@color/text_primary" android:textSize="13sp" android:fontFamily="sans-serif-medium"/>
+                                <ProgressBar android:id="@+id/pbGemini" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginTop="4dp" android:max="100" android:progressDrawable="@drawable/custom_progress_bar"/>
+                            </LinearLayout>
+                            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="end" android:layout_marginStart="10dp">
+                                <TextView android:id="@+id/tvGeminiPct" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0%" android:textColor="@color/accent_green" android:textSize="13sp" android:fontFamily="sans-serif-bold"/>
+                                <TextView android:id="@+id/tvGeminiMins" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 min" android:textColor="@color/text_secondary" android:textSize="11sp"/>
+                            </LinearLayout>
                         </LinearLayout>
-                        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="end" android:layout_marginStart="10dp">
-                            <TextView android:id="@+id/tvPerplexityPct" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0%" android:textColor="@color/accent_green" android:textSize="13sp" android:fontFamily="sans-serif-bold"/>
-                            <TextView android:id="@+id/tvPerplexityMins" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 min" android:textColor="@color/text_secondary" android:textSize="11sp"/>
+
+                        <!-- Copilot row -->
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="16dp">
+                            <TextView android:layout_width="36dp" android:layout_height="36dp" android:gravity="center" android:text="Co" android:textColor="#FFFFFF" android:textSize="13sp" android:fontFamily="sans-serif-bold" android:background="@color/app_claude"/>
+                            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="12dp">
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Copilot" android:textColor="@color/text_primary" android:textSize="13sp" android:fontFamily="sans-serif-medium"/>
+                                <ProgressBar android:id="@+id/pbCopilot" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginTop="4dp" android:max="100" android:progressDrawable="@drawable/custom_progress_bar"/>
+                            </LinearLayout>
+                            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="end" android:layout_marginStart="10dp">
+                                <TextView android:id="@+id/tvCopilotPct" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0%" android:textColor="@color/accent_green" android:textSize="13sp" android:fontFamily="sans-serif-bold"/>
+                                <TextView android:id="@+id/tvCopilotMins" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 min" android:textColor="@color/text_secondary" android:textSize="11sp"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- Perplexity row -->
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                            <TextView android:layout_width="36dp" android:layout_height="36dp" android:gravity="center" android:text="P" android:textColor="#FFFFFF" android:textSize="16sp" android:fontFamily="sans-serif-bold" android:background="@color/app_perplexity"/>
+                            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="12dp">
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Perplexity" android:textColor="@color/text_primary" android:textSize="13sp" android:fontFamily="sans-serif-medium"/>
+                                <ProgressBar android:id="@+id/pbPerplexity" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginTop="4dp" android:max="100" android:progressDrawable="@drawable/custom_progress_bar"/>
+                            </LinearLayout>
+                            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="end" android:layout_marginStart="10dp">
+                                <TextView android:id="@+id/tvPerplexityPct" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0%" android:textColor="@color/accent_green" android:textSize="13sp" android:fontFamily="sans-serif-bold"/>
+                                <TextView android:id="@+id/tvPerplexityMins" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 min" android:textColor="@color/text_secondary" android:textSize="11sp"/>
+                            </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>

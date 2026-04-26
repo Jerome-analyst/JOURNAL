@@ -1,5 +1,7 @@
 package com.aibalance.tracker
 
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -10,9 +12,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.DecelerateInterpolator
-import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageButton
+import com.google.android.material.button.MaterialButton
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -29,6 +31,7 @@ import java.util.concurrent.Executors
 class MainActivity : AppCompatActivity() {
 
     private lateinit var tracker: AiUsageTracker
+    private lateinit var streakManager: StreakManager
 
     // Header
     private lateinit var tvGreeting: TextView
@@ -54,9 +57,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var pbGemini: ProgressBar
     private lateinit var tvGeminiPct: TextView
     private lateinit var tvGeminiMins: TextView
+    private lateinit var pbCopilot: ProgressBar
+    private lateinit var tvCopilotPct: TextView
+    private lateinit var tvCopilotMins: TextView
     private lateinit var pbPerplexity: ProgressBar
     private lateinit var tvPerplexityPct: TextView
     private lateinit var tvPerplexityMins: TextView
+
+    // Expandable apps list state
+    private var appsExpanded = false
 
     // Stats chips
     private lateinit var tvStreakDays: TextView
@@ -66,7 +75,7 @@ class MainActivity : AppCompatActivity() {
     // Permission
     private lateinit var cvPermission: MaterialCardView
     private lateinit var tvPermissionHint: TextView
-    private lateinit var btnGrantAccess: Button
+    private lateinit var btnGrantAccess: MaterialButton
 
     // Navigation
     private lateinit var btnSettings: ImageButton
@@ -87,6 +96,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         tracker = AiUsageTracker(this)
+        streakManager = StreakManager(this)
+        streakManager.checkAndUpdateStreak()
         bindViews()
         setupActions()
         requestNotificationPermissionIfNeeded()
@@ -128,6 +139,9 @@ class MainActivity : AppCompatActivity() {
         pbGemini = findViewById(R.id.pbGemini)
         tvGeminiPct = findViewById(R.id.tvGeminiPct)
         tvGeminiMins = findViewById(R.id.tvGeminiMins)
+        pbCopilot = findViewById(R.id.pbCopilot)
+        tvCopilotPct = findViewById(R.id.tvCopilotPct)
+        tvCopilotMins = findViewById(R.id.tvCopilotMins)
         pbPerplexity = findViewById(R.id.pbPerplexity)
         tvPerplexityPct = findViewById(R.id.tvPerplexityPct)
         tvPerplexityMins = findViewById(R.id.tvPerplexityMins)
@@ -150,11 +164,7 @@ class MainActivity : AppCompatActivity() {
         btnSettings.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
         }
-        findViewById<TextView>(R.id.tvViewAllApps).setOnClickListener {
-            startActivity(Intent(this, StatsActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
-            })
-        }
+        findViewById<TextView>(R.id.tvViewAllApps).setOnClickListener { toggleAppsList() }
 
         bottomNav.selectedItemId = R.id.nav_dashboard
         bottomNav.setOnItemSelectedListener { item ->
@@ -202,20 +212,10 @@ class MainActivity : AppCompatActivity() {
         tvLimitSuffix.text = "/ $effectiveLimit min"
 
         val todayKey = Calendar.getInstance().get(Calendar.DAY_OF_YEAR)
-        val lastCheckDay = prefs.getInt(SettingsActivity.KEY_LAST_STREAK_CHECK_DAY, -1)
-        val brokenDay = prefs.getInt(SettingsActivity.KEY_STREAK_BROKEN_TODAY, -1)
-        var streakDays = prefs.getInt(SettingsActivity.KEY_STREAK_DAYS, 0)
 
-        if (lastCheckDay != todayKey) {
-            val wasYesterdaySuccess = lastCheckDay != -1 && brokenDay != lastCheckDay
-            if (wasYesterdaySuccess) streakDays++
-            prefs.edit()
-                .putInt(SettingsActivity.KEY_STREAK_DAYS, streakDays)
-                .putInt(SettingsActivity.KEY_LAST_STREAK_CHECK_DAY, todayKey)
-                .apply()
-        }
-
-        tvStreakBadge.text = "🔥 $streakDays day streak"
+        // Streak is managed by StreakManager — updated once per day in onCreate()
+        val streakDays = streakManager.getCurrentStreak()
+        tvStreakBadge.text = "🔥 $streakDays Day Streak"
         tvStreakDays.text = "$streakDays"
         tvWordsSolved.text = "$wordsSolved"
         tvBonusMinutes.text = "+$bonusMinutes"
@@ -241,6 +241,7 @@ class MainActivity : AppCompatActivity() {
                 val chatGpt = usageList.find { it.packageName == "com.openai.chatgpt" }?.minutes ?: 0L
                 val claude = usageList.find { it.packageName == "com.anthropic.claude" }?.minutes ?: 0L
                 val gemini = usageList.find { it.packageName == "com.google.android.apps.bard" }?.minutes ?: 0L
+                val copilot = usageList.find { it.packageName == "com.microsoft.copilot" }?.minutes ?: 0L
                 val perplexity = usageList.find { it.packageName == "com.perplexity.app" }?.minutes ?: 0L
 
                 val shouldAlert = prefs.getBoolean(SettingsActivity.KEY_LIMIT_ALERT, true)
@@ -249,11 +250,6 @@ class MainActivity : AppCompatActivity() {
                 if (shouldAlert && totalToday >= effectiveLimit && lastCooldown != todayKey) {
                     weeklyForCooldown = tracker.getTotalAiMinutesThisWeek()
                 }
-                val currentBroken = prefs.getInt(SettingsActivity.KEY_STREAK_BROKEN_TODAY, -1)
-                if (totalToday >= effectiveLimit && currentBroken != todayKey) {
-                    prefs.edit().putInt(SettingsActivity.KEY_STREAK_BROKEN_TODAY, todayKey).apply()
-                }
-
                 runOnUiThread {
                     if (isFinishing || isDestroyed) { refreshInProgress = false; return@runOnUiThread }
 
@@ -261,7 +257,7 @@ class MainActivity : AppCompatActivity() {
                     tvRemainingMinutes.text = "$remaining min remaining"
                     progressDaily.progress = totalToday.coerceAtMost(effectiveLimit).toInt()
                     updateWaterFillAnimated(totalToday, effectiveLimit)
-                    updatePerAppBreakdown(chatGpt, claude, gemini, perplexity, effectiveLimit)
+                    updatePerAppBreakdown(chatGpt, claude, gemini, copilot, perplexity, effectiveLimit)
 
                     if (weeklyForCooldown != null) {
                         prefs.edit().putInt(SettingsActivity.KEY_LAST_COOLDOWN_DAY, todayKey).apply()
@@ -285,13 +281,69 @@ class MainActivity : AppCompatActivity() {
         updateWaterFillAnimated(0, limit)
     }
 
-    private fun updatePerAppBreakdown(chatGpt: Long, claude: Long, gemini: Long, perplexity: Long, limit: Long) {
+    private fun updatePerAppBreakdown(chatGpt: Long, claude: Long, gemini: Long, copilot: Long, perplexity: Long, limit: Long) {
         fun pct(mins: Long) = ((mins.toFloat() / limit) * 100).toInt().coerceIn(0, 100)
 
         animatePb(pbChatGPT, pct(chatGpt)); tvChatGPTPct.text = "${pct(chatGpt)}%"; tvChatGPTMins.text = "$chatGpt min"
         animatePb(pbClaude, pct(claude)); tvClaudePct.text = "${pct(claude)}%"; tvClaudeMins.text = "$claude min"
         animatePb(pbGemini, pct(gemini)); tvGeminiPct.text = "${pct(gemini)}%"; tvGeminiMins.text = "$gemini min"
+        animatePb(pbCopilot, pct(copilot)); tvCopilotPct.text = "${pct(copilot)}%"; tvCopilotMins.text = "$copilot min"
         animatePb(pbPerplexity, pct(perplexity)); tvPerplexityPct.text = "${pct(perplexity)}%"; tvPerplexityMins.text = "$perplexity min"
+    }
+
+    private fun toggleAppsList() {
+        val container = findViewById<LinearLayout>(R.id.llExpandableApps)
+        val tvViewAll = findViewById<TextView>(R.id.tvViewAllApps)
+        val chevron = findViewById<TextView>(R.id.tvChevron)
+
+        if (!appsExpanded) {
+            container.visibility = View.VISIBLE
+            container.measure(
+                View.MeasureSpec.makeMeasureSpec(container.width, View.MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+            )
+            val targetH = container.measuredHeight
+            container.layoutParams.height = 0
+            container.requestLayout()
+
+            ValueAnimator.ofInt(0, targetH).apply {
+                duration = 300
+                interpolator = AccelerateDecelerateInterpolator()
+                addUpdateListener {
+                    container.layoutParams.height = it.animatedValue as Int
+                    container.requestLayout()
+                }
+                addListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: android.animation.Animator) {
+                        container.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                    }
+                })
+            }.start()
+
+            ObjectAnimator.ofFloat(chevron, "rotation", 0f, 180f).setDuration(300).start()
+            tvViewAll.text = "Show less"
+            appsExpanded = true
+        } else {
+            val startH = container.height
+            ValueAnimator.ofInt(startH, 0).apply {
+                duration = 300
+                interpolator = AccelerateDecelerateInterpolator()
+                addUpdateListener {
+                    container.layoutParams.height = it.animatedValue as Int
+                    container.requestLayout()
+                }
+                addListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: android.animation.Animator) {
+                        container.visibility = View.GONE
+                        container.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                    }
+                })
+            }.start()
+
+            ObjectAnimator.ofFloat(chevron, "rotation", 180f, 0f).setDuration(300).start()
+            tvViewAll.text = "View all"
+            appsExpanded = false
+        }
     }
 
     private fun animatePb(pb: ProgressBar, target: Int) {
@@ -351,7 +403,7 @@ class MainActivity : AppCompatActivity() {
                 fill.setBackgroundColor(fillColor)
                 ValueAnimator.ofInt(currentH, targetH).apply {
                     duration = 800L
-                    interpolator = AccelerateDecelerateInterpolator()
+                     interpolator = AccelerateDecelerateInterpolator()
                     addUpdateListener { anim ->
                         fill.updateLayoutParams<FrameLayout.LayoutParams> {
                             height = anim.animatedValue as Int
